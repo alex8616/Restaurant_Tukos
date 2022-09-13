@@ -76,6 +76,10 @@ class ComandaController extends Controller
     public function show(Comanda $comanda){
 
         $subtotal = 0;
+        $tipoclientes = Cliente::select('tipo_clientes.Nombre_tipoclientes')
+        ->join('detalle_clientes', 'clientes.id', '=', 'detalle_clientes.cliente_id')
+        ->join('tipo_clientes', 'tipo_clientes.id', '=', 'detalle_clientes.tipo_cliente_id')
+        ->where('detalle_clientes.tipo_cliente_id', '=', $comanda->tipo_cliente_id)->get();
         $detallecomandas = $comanda->detallecomandas;
         foreach ($detallecomandas as $detallecomanda) {
             $subtotal += $detallecomanda->cantidad *
@@ -83,7 +87,7 @@ class ComandaController extends Controller
             $detallecomanda->precio_venta * $detallecomanda->descuento / 100;
         }
 
-        return view('admin.comanda.show', compact('comanda', 'detallecomandas', 'subtotal'));
+        return view('admin.comanda.show', compact('comanda', 'detallecomandas', 'subtotal','tipoclientes'));
     }
 
     public function edit(Comanda $comanda){

@@ -13,7 +13,8 @@ class TipoCliente extends Model
                             'Direccion_tipoclientes',
                             'Fecha_Inicio',
                             'Fecha_Final',
-                            'tipo'];
+                            'tipo',
+                            'user_id'];
 
     //Relacion de uno a muchos
     public function detalleclientes(){
@@ -25,5 +26,9 @@ class TipoCliente extends Model
         return $this->hasMany(Comanda::class);
     } 
 
+    //Relacion de uno a muchos inversa
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 
 }

@@ -20,6 +20,8 @@ class CreateTipoClientesTable extends Migration
             $table->datetime('Fecha_Inicio');
             $table->datetime('Fecha_Final');
             $table->enum('tipo', ['Normal', 'Basico', 'Familiar', 'Empresarial'])->default('Normal');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

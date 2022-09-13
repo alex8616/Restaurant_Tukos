@@ -32,43 +32,83 @@
         </button>
     </div>
     @endif
-    <a href="{{ route('admin.mesa.register') }}" class="btn btn-primary mb-2">Registrar Mesa Nueva</a>
-    <a href="{{ route('admin.mesa.index') }}" class="btn btn-primary mb-2">Listar Mesa</a>
-    <div class="card" style="width: 90%; margin: auto;">
-        <div class="card-body ">
-            <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4 dt-responsive nowrap" id="mesa" style="width: 50%; margin: auto;">
-                <thead class="bg-primary text-white">
-                    <tr>
-                        <th>N°</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col"class="text-center">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $i=1;
-                    @endphp
-                    @foreach ($mesas as $mesa)
-                        <tr>
-                            <td>{{ $i++ }}</td>
-                            <td>{{ ($mesa->Nombre_mesa) }}</td>
-                            <td class="text-right" style="width: 200px;">
-                                <form action="{{ route('admin.mesa.destroy', $mesa) }}" method="POST"
-                                    class="eliminar-form">
-                                    @method('DELETE')
-                                    @csrf
-                                        <a href="{{ route('admin.mesa.edit', $mesa) }}"
-                                            class="btn btn-success ">Editar
-                                        </a>
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+    <div class="row">
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div id="orders-chart-legend" class="orders-chart-legend">
+                    <div class="card-body">
+                        <form action="{{ route('admin.mesa.crear') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="nombre">Nombre o Numero De Mesa: </label>
+                                <input type="text" name="Nombre_mesa" id="Nombre_mesa" value="{{ old('Nombre_mesa') }}" class="form-control"
+                                    tabindex="1" autofocus onkeyup="javascript:this.value=this.value.toUpperCase();" value="{{ old('Nombre_mesa') }}">
+                                @if ($errors->has('Nombre_mesa'))
+                                    <div class="alert alert-danger">
+                                        <span class="error text-danger">{{ $errors->first('Nombre_mesa') }}</span>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 grid-margin stretch-card">
+                                    <button type="submit" class="btn btn-success" tabindex="4" style="width:100%;">Guardar </button>
+                                </div>
+                                <div class="col-md-6 grid-margin stretch-card">
+                                    <a href="{{ route('admin.mesa.index') }}" class="btn btn-danger" tabindex="4" style="width:100%;">Cancelar</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="col-md-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div id="orders-chart-legend" class="orders-chart-legend">
+                    <div class="card">
+                        <div class="card-body ">
+                            <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4 dt-responsive nowrap" id="categoria">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th>N°</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col"class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $i=1;
+                                    @endphp
+                                    @foreach ($mesas as $mesa)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ ($mesa->Nombre_mesa) }}</td>
+                                            <td class="text-right" style="width: 200px;">
+                                                <form action="{{ route('admin.mesa.destroy', $mesa) }}" method="POST"
+                                                    class="eliminar-form">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                        <a href="{{ route('admin.mesa.edit', $mesa) }}"
+                                                            class="btn btn-success ">Editar
+                                                        </a>
+                                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 
 @section('content_top_nav_right')
@@ -117,8 +157,14 @@
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.8/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.8/js/responsive.bootstrap4.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
-<script>
+
+    <script>
         $('.eliminar-form').submit(function(e) {
             e.preventDefault();
             Swal.fire({
@@ -146,12 +192,13 @@
             )
         </script>
     @endif
+
+
     <script>
         $(document).ready(function() {
-            $('#mesa').DataTable({
+            $('#categoria').DataTable({
                 responsive: true,
                 autoWidth: false,
-                "bSort" : false,
                 "language": {
                     "lengthMenu": "Mostrar _MENU_ registro por página",
                     "zeroRecords": "No se encontro registro",
@@ -173,3 +220,4 @@
         });
     </script>
 @stop
+

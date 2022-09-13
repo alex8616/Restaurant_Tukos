@@ -1,7 +1,9 @@
-<x-guest-layout>
+<x-guest-layout id="fondo">
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <center>
+                <img class="img-thumbnail" src="{{ asset('img/picwish.png') }}" width="45%"/>
+            </center>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -46,3 +48,7 @@
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>
+<style type="text/css">
+.min-h-screen {
+    background-color: #1D2026;
+  }

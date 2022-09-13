@@ -36,7 +36,7 @@
                 @endif
             </div>
             <div class="form-row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-12 mb-3">
                     <label for="inputApellidom">Categoria Del Plato</label>
                     <select id="categoria_id" name="categoria_id" class="form-control">
                     <option value="" >Seleccione Una De las Opciones</option>

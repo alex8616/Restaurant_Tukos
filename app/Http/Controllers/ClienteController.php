@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\TipoCliente;
 use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
@@ -16,16 +17,13 @@ use Illuminate\Support\Facades\Notification;
 class ClienteController extends Controller
 {
 
-    public function index()
-    {
+    public function index(){
         $clientes = Cliente::get();
         //auth()->user()->notify(new ClienteNotification($clientes));
-        
         return view('admin.cliente.listar',compact('clientes'));
     }
 
-    public function create()
-    {
+    public function create(){
         return view('admin.cliente.create');
     }
 
@@ -72,11 +70,15 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
+        $tipoclientes = Cliente::select('*')
+        ->join('detalle_clientes', 'clientes.id', '=', 'detalle_clientes.cliente_id')
+        ->join('tipo_clientes', 'tipo_clientes.id', '=', 'detalle_clientes.tipo_cliente_id')
+        ->where('detalle_clientes.cliente_id', '=', $cliente->id)->get();
         $total_ventas = 0;
         foreach ($cliente->comandas as $key =>  $comanda) {
             $total_ventas +=$comanda->total;
         }
-        return view('admin.cliente.show', compact('cliente', 'total_ventas'));
+        return view('admin.cliente.show', compact('cliente', 'total_ventas','tipoclientes'));
     }
 
     /**

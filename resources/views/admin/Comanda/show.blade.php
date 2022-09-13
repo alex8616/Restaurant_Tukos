@@ -13,9 +13,15 @@
         <div class="card-body">
             <div class="form-group row">
                 <div class="col-md-4 text-center">
-                    <label class="form-control-label "><strong>Cliente</strong></label>
-                    <p>{{ucwords($comanda->cliente->Nombre_cliente)}} {{ucwords($comanda->cliente->Apellidop_cliente)}}</p>
-                    
+                    @if ($comanda->cliente_id != 0)
+                        <label class="form-control-label "><strong>Cliente</strong></label>
+                        <p>{{ucwords($comanda->cliente->Nombre_cliente)}} {{ucwords($comanda->cliente->Apellidop_cliente)}}</p>
+                    @else
+                        <label class="form-control-label "><strong>Pensionado</strong></label>
+                        @foreach ($tipoclientes as $tipocliente)  
+                        @endforeach
+                        <p>{{ $tipocliente->Nombre_tipoclientes }} </p>
+                    @endif
                 </div>
                 <div class="col-md-4 text-center">
                     <label class="form-control-label"><strong>Número Venta</strong></label>

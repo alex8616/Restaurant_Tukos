@@ -9,66 +9,106 @@
 @stop
 
 @section('content')
-<a href="{{ route('admin.categoria.create') }}" class="btn btn-primary mb-2">Registrar Categoria Nueva</a>
-<a href="{{ route('admin.categoria.index') }}" class="btn btn-primary mb-2">Listar Categoria</a>
-    @if (session('success'))
+@if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong> Guardado!</strong> {{ session('success') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    @elseif(session('update'))
-        <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            <strong> Editado!</strong> {{ session('update') }}
+    @elseif(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong> Error !</strong> {{ session('error') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
-    @if(session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong> Error!</strong> {{ session('error') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    @if (session('cancelado'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('cancelado') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     @endif
-    <div class="card">
-        <div class="card-body ">
-            <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4 dt-responsive nowrap" id="categoria">
-                <thead class="bg-primary text-white">
-                    <tr>
-                        <th>N°</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col"class="text-center">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $i=1;
-                    @endphp
-                    @foreach ($categorias as $categoria)
-                        <tr>
-                            <td>{{ $i++ }}</td>
-                            <td>{{ ($categoria->Nombre_categoria) }}</td>
-                            <td class="text-right" style="width: 100px;">
-                                <form action="{{ route('admin.categoria.destroy', $categoria) }}" method="POST"
-                                    class="eliminar-form">
-                                    @method('DELETE')
-                                    @csrf
-                                        <a href="{{ route('admin.categoria.edit', $categoria) }}"
-                                            class="btn btn-success ">Editar
-                                        </a>
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+    
+<div class="row">
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div id="orders-chart-legend" class="orders-chart-legend">
+                    <div class="container">
+                    <form action="{{ route('admin.categoria.store') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="nombre">Nombre Categoría: </label>
+                            <input type="text" name="Nombre_categoria" id="Nombre_categoria" value="{{ old('Nombre_categoria') }}" class="form-control"
+                                tabindex="1" autofocus onkeyup="javascript:this.value=this.value.toUpperCase();">
+                            @if ($errors->has('Nombre_categoria'))
+                                <div class="alert alert-danger">
+                                    <span class="error text-danger">{{ $errors->first('Nombre_categoria') }}</span>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 grid-margin stretch-card">
+                                <button type="submit" class="btn btn-success" tabindex="4" style="width:100%;">Guardar </button>
+                            </div>
+                            <div class="col-md-6 grid-margin stretch-card">
+                                <a href="{{ route('admin.categoria.index') }}" class="btn btn-danger" tabindex="4" style="width:100%;">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
         </div>
     </div>
+    <div class="col-md-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div id="orders-chart-legend" class="orders-chart-legend">
+                    <div class="card">
+                        <div class="card-body ">
+                            <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4 dt-responsive nowrap" id="categoria">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th>N°</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col"class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $i=1;
+                                    @endphp
+                                    @foreach ($categorias as $categoria)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ ($categoria->Nombre_categoria) }}</td>
+                                            <td class="text-right" style="width: 100px;">
+                                                <form action="{{ route('admin.categoria.destroy', $categoria) }}" method="POST"
+                                                    class="eliminar-form">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                        <a href="{{ route('admin.categoria.edit', $categoria) }}"
+                                                            class="btn btn-success ">Editar
+                                                        </a>
+                                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 
 @section('content_top_nav_right')

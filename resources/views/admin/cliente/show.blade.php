@@ -165,7 +165,7 @@
                                             @php
                                                 $i=1;
                                             @endphp
-                                            @foreach ($cliente->Tipoclientes as $Tipocliente)
+                                            @foreach ($tipoclientes as $Tipocliente)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
                                                 <td>{{ $Tipocliente->Fecha_Inicio }}</td>

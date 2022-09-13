@@ -50,9 +50,11 @@
                                     <select class="form-control selectpicker clienteB" data-live-search="true" name="tipo_cliente_id" id="tipo_cliente_id" lang="es">
                                         <option value="" data-icon="fas fa-user-tie" disabled selected>Buscar cliente</option>
                                         @foreach ($tipoclientes as $tipocliente)
+                                            @if($tipocliente->tipo != 'Normal')
                                             <option value="{{ $tipocliente->id }}">
                                                         {{ $tipocliente->Nombre_tipoclientes }} 
                                             </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

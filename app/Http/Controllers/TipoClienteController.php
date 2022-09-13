@@ -16,7 +16,7 @@ class TipoClienteController extends Controller{
     
     public function index()
     {
-        $now = Carbon::now()->format('d-m-Y');;
+        $now = Carbon::now()->format('d-m-Y');
         $tipoclientes = TipoCliente::orderBy('id', 'desc')->get();
         //return response()->json($news);
         return view('admin.pensionado.index',compact('tipoclientes','now'));
@@ -33,25 +33,9 @@ class TipoClienteController extends Controller{
         return view('admin.pensionado.createtipo',compact('clientes','tipoclientes'));
     }
 
-    public function store(Request $request)
-    {
-        $data = request()->validate([
-            'Nombre_tipoclientes' => 'required',
-            'Direccion_tipoclientes' => 'required',
-            'Fecha_Inicio' => 'required|date_format:Y-m-d|after:year',
-            'Fecha_Final' => 'required|date_format:Y-m-d|after:year',
-            'tipo' => 'required',
-           ]);
-        
-        $datospension = request()->except('_token');
-        $pension = TipoCliente::create($datospension);
-        return redirect()->route('admin.pensionado.createtipo')->with('success', 'Se registró correctamente');
-    }
-
     public function listpensionados(){
        
-        $news = TipoCliente::whereRaw("Fecha_Final = DATE(now())")
-                        ->get();
+        $news = TipoCliente::whereRaw("Fecha_Final = DATE(now())")->get();
         //return response()->json($news);
         return view('admin.pensionado.listpensionados', compact('news'));
     }

@@ -77,4 +77,9 @@ class User extends Authenticatable
     public function comandamesas() {
         return $this->hasMany(ComandaMesa::class);
      }
+
+     //relacion de uno a muchos
+    public function tipoclientes() {
+        return $this->hasMany(TipoCliente::class);
+     }
 }

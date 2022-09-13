@@ -16,10 +16,10 @@ class CreateComandasTable extends Migration
         Schema::create('comandas', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('cliente_id');
+            $table->unsignedBigInteger('cliente_id')->nullable();
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
 
-            $table->unsignedBigInteger('tipo_cliente_id');
+            $table->unsignedBigInteger('tipo_cliente_id')->nullable();
             $table->foreign('tipo_cliente_id')->references('id')->on('tipo_clientes')->onDelete('cascade');
 
             $table->unsignedBigInteger('user_id');

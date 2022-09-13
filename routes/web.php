@@ -73,6 +73,7 @@ Route::get('comanda/pdf/{comanda}', [ComandaController::class, 'pdf'])->name('ad
 Route::get('reports.component', ReportesController::class)->middleware('auth')->name('reports.reportes');
 Route::get('reports.ComponetMesa', ReporteMesaController::class)->middleware('auth')->name('reports.reportemesa');
 
+Route::get('plato.listar', [PlatoController::class, 'listar'])->name('admin.plato.listar');
 
 Route::get('cliente.listvip', [ClienteController::class, 'listvip'])->name('admin.cliente.listvip');
 Route::get('cliente.listcumple', [ClienteController::class, 'listcumple'])->name('admin.cliente.listcumple');

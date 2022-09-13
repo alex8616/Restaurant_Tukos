@@ -3,6 +3,30 @@
 @section('title', 'Restaurant')
 
 @section('content_header')
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong> Guardado!</strong> {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @elseif(session('update'))
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong> Editado!</strong> {{ session('update') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    @if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong> Error!</strong> {{ session('error') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+
 <div class="hero">
     <h1 id="htitle"><span id="title">RESTAURANT TUKO´S</span><br>LISTADO DE CLIENTE PENSIONADOS</h1>
 </div>
@@ -27,7 +51,7 @@
         @if($tipocliente->Fecha_Final <= now()->toDateString())
             <tr style="background-color: #FF5252">
                 <td>{{$tipocliente->id}}</td>
-                <td>vacio</td>
+                <td>{{$tipocliente->Nombre_tipoclientes}}</td>
                 <td>{{$tipocliente->tipo}}</td>
                 <td>{{$tipocliente->Fecha_Inicio}}</td>
                 <td>{{$tipocliente->Fecha_Final}}</td>
@@ -46,7 +70,7 @@
         @else
             <tr>
                 <td>{{$tipocliente->id}}</td>
-                <td>vacio</td>
+                <td>{{$tipocliente->Nombre_tipoclientes}}</td>
                 <td>{{$tipocliente->tipo}}</td>
                 <td>Inicio el {{ \Carbon\Carbon::parse($tipocliente->Fecha_Inicio)->setTimezone('America/La_Paz')->isoFormat(' dddd D \d\e MMMM \d\e\l Y')}}</td>
                 <td>Concluye el {{ \Carbon\Carbon::parse($tipocliente->Fecha_Final)->setTimezone('America/La_Paz')->isoFormat(' D \d\e MMMM \d\e\l Y')}}</td>

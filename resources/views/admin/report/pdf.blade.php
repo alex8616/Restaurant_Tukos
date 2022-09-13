@@ -197,10 +197,11 @@
 															</td>
 															<td>
 															@foreach ($tipoclientes as $tipocliente)
-																@if($venta->tipo_cliente_id == $tipocliente->id)
-																	{{ $tipocliente->Nombre_cliente }}{{$tipocliente->Apellidop_cliente}} {{$tipocliente->Apellidom_cliente}}<br>
-																@endif
+																
 															@endforeach
+															@if($venta->tipo_cliente_id == $tipocliente->id)
+																	{{ $tipocliente->Direccion_tipoclientes }}<br>
+																@endif
 															</td>
 														@endif
 														<td scope="row">Bs. {{ number_format($venta->total, 2) }}</td>

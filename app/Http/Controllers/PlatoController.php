@@ -17,6 +17,13 @@ class PlatoController extends Controller
      */
     public function index(Request $request)
     {
+        $platos=Plato::orderBy('id', 'desc')->get();
+        $categorias = Categoria::get();
+        return view('admin.plato.index',compact('platos','categorias'));
+    }
+
+    public function listar(Request $request)
+    {
         $buscarpor=$request->get('buscarpor');
         $platos=Plato::where('Nombre_plato','like','%'.$buscarpor.'%')->orderBy('id', 'desc')->paginate(6);
         $categorias = new Categoria;
@@ -30,11 +37,6 @@ class PlatoController extends Controller
      */
     public function create()
     {
-       /*
-        $categoria_list = Categoria::all();
-        $data = array("lista_categoria" => $categoria_list);
-        return response()->view('plato.create',$data);
-       */
         $categorias = Categoria::get();
         return view('admin.plato.create',compact('categorias'));
     }

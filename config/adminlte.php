@@ -295,12 +295,7 @@ return [
                 [
                     'text' => 'Pensionar',
                     'icon'  => 'fa-sharp fa-solid fa-id-card-clip',
-                    'url'  => 'pensionado/create',
-                ],
-                [
-                    'text' => 'Platos',
-                    'icon'  => 'fa-solid fa-utensils',
-                    'url'  => 'plato/create',
+                    'url'  => 'pensionado.createtipo',
                 ],
                 [
                     'text' => 'Menus',
@@ -308,14 +303,19 @@ return [
                     'url'  => 'menu/create',
                 ],
                 [
+                    'text' => 'Platos',
+                    'icon'  => 'fa-solid fa-utensils',
+                    'url'  => 'plato/',
+                ],
+                [
                     'text' => 'Mesas',
                     'icon'  => 'fa-solid fa-square',
-                    'url'  => 'mesa.register',
+                    'url'  => 'mesa/',
                 ],
                 [
                     'text' => 'Categorias',
                     'icon'  => 'fa-solid fa-layer-group',
-                    'url'  => 'categoria/create',
+                    'url'  => 'categoria/',
                 ],
             ],
         ],
@@ -340,22 +340,12 @@ return [
                 [
                     'text' => 'Platos Listar',
                     'icon'  => 'fa-solid fa-utensils',
-                    'url'  => 'plato/',
+                    'url'  => 'plato.listar',
                 ],
                 [
                     'text' => 'Menus Listar',
                     'icon'  => 'fa-solid fa-bars',
                     'url'  => 'menu/',
-                ],
-                [
-                    'text' => 'Mesas Listar',
-                    'icon'  => 'fa-solid fa-square',
-                    'url'  => 'mesa/',
-                ],
-                [
-                    'text' => 'Categorias Listar',
-                    'icon'  => 'fa-solid fa-layer-group',
-                    'url'  => 'categoria/',
                 ],
             ],
         ],

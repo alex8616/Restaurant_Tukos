@@ -19,6 +19,6 @@ class Cliente extends Model
 
     //Relacion uno a muchos
     public function detalleclientes(){
-        return $this->hasMany(DetalleCliente::class);
+        return $this->hasMany(DetalleClientes::class);
     } 
 }

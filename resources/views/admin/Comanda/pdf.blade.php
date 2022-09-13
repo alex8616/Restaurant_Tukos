@@ -103,7 +103,7 @@ $medidaTicket = 180;
                     <strong> Nombre: </strong>
                             {{ $comanda->cliente->Nombre_cliente }} 
                             {{ $comanda->cliente->Apellidop_cliente }}  
-                            {{ $comanda->cliente->id }}<p> 
+                            {{ $comanda->cliente->Apellidom_cliente }}<p> 
                     <strong> Direccion: </strong>{{ $comanda->cliente->Direccion_cliente }}
                 @else
                     @foreach ($tipoclientes as $tipocliente)  

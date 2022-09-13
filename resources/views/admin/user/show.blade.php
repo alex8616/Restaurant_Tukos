@@ -111,34 +111,31 @@
 
                                                         @if ($venta->estado == 'VALIDO')
                                                             <td>
-                                                                <a class="btn btn-success btn-sm"
-                                                                    href="{{ route('cambio.estado.ventas', $venta) }}"
+                                                                <a class="btn btn-danger btn-sm"
+                                                                    href="{{ route('cambio.estado.comanda', $venta) }}"
                                                                     title="Editar">
-                                                                    Activo <i class="fas fa-check"></i>
+                                                                    Pendiente <i class="fas fa-check"></i>
                                                                 </a>
                                                             </td>
                                                         @else
                                                             <td>
-                                                                <a class="btn btn-danger btn-sm"
-                                                                    href="{{ route('cambio.estado.ventas', $venta) }}"
+                                                                <a class="btn btn-success btn-sm"
+                                                                    href="{{ route('cambio.estado.comanda', $venta) }}"
                                                                     title="Editar">
-                                                                    Cancelado <i class="fas fa-times"></i>
+                                                                    Confirmado 
                                                                 </a>
                                                             </td>
                                                         @endif
 
                                                         <td sstyle="width: 180px;">
-                                                            @can('ventas.pdf')
-                                                                <a href="{{ route('ventas.pdf', $venta) }}"
+                                                                <a href="{{ route('admin.comanda.pdf', $venta) }}"
                                                                     class="btn btn-danger btn-sm">Imprimir <i
                                                                         class="far fa-file-pdf"></i></a>
-                                                            @endcan
-
-                                                            @can('ventas.show')
-                                                                <a href="{{ route('admin.ventas.show', $venta) }}"
+                                                           
+                                                                <a href="{{ route('admin.comanda.show', $venta) }}"
                                                                     class="btn btn-info btn-sm">Ver <i
                                                                         class="far fa-eye"></i></a>
-                                                            @endcan
+                                                           
                                                         </td>
                                                     </tr>
                                                 @endforeach
