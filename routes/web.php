@@ -18,6 +18,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\MesaController;
 use App\Http\Controllers\DetalleClientesController;
+use App\Http\Livewire\Articulos;
+
 
 Route::get('/', function () {
     return view('auth.login');
@@ -56,6 +58,8 @@ Route::resource('cliente', ClienteController::class)->names('admin.cliente')->mi
 Route::resource('categoria', CategoriaController::class)->except('show')->names('admin.categoria');
 Route::resource('comanda', ComandaController::class)->names('admin.comanda')->middleware('auth');
 Route::resource('tipopensionado', DetalleClientesController::class)->names('admin.tipopensionado')->middleware('auth');
+//Route::resource('articulo', Articulos::class)->middleware('auth');
+Route::get('articulos', Articulos::class)->middleware('auth')->name('admin.articulos');;
 
 
 Route::get('mesa.register', [MesaController::class, 'register'])->name('admin.mesa.register');
