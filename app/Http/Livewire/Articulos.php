@@ -27,6 +27,8 @@ class Articulos extends Component
             'Cantidad_articulo' => $this -> Cantidad_articulo,
         ]);
 
+        $this->dispatchBrowserEvent('swal');
+
         $this->limpiarCampos();
         $this->dispatchBrowserEvent('close-modal');
 
