@@ -5,23 +5,27 @@ use App\Models\Articulo;
 use Livewire\Component;
 use phpDocumentor\Reflection\Types\This;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 class Articulos extends Component
 {
-    public $id_articulo, $Nombre_articulo, $Descripcion_articulo, $Cantidad_articulo, $articulo_delete_id;
-    public $view_id_articulo, $view_Nombre_articulo, $view_Descripcion_articulo, $view_Cantidad_articulo;
+    public $id_articulo, $image, $Nombre_articulo, $Descripcion_articulo, $Cantidad_articulo, $articulo_delete_id;
+    public $view_id_articulo, $view_image, $view_Nombre_articulo, $view_Descripcion_articulo, $view_Cantidad_articulo;
     public $modal = false;
-    public $search;
+    public $search, $cambiarimgrand;
 
     use WithPagination;
+    use WithFileUploads;
 
+    public function mount(){
+        $this->cambiarimgrand = rand();
+    }
     public function render(){
         //$articulos = Articulo::orderBy('id','desc')->paginate(3);
-        $articulos = Articulo::where('Nombre_articulo','like','%' . $this->search . '%')->get();
+        $articulos = Articulo::where('Nombre_articulo','like','%' . $this->search . '%')->paginate(5);
         return view('livewire.articulos',compact('articulos'))->extends('adminlte::page');
     }
     
-    //añadir articulo
     public function guardar(){
         
         $this->validate([
@@ -29,27 +33,22 @@ class Articulos extends Component
             'Descripcion_articulo' => 'required',
             'Cantidad_articulo' => 'required|numeric',
         ]);
+        $image = $this->image->store('posts');
         Articulo::updateOrCreate(['id'=> $this->id_articulo],
         [
             'Nombre_articulo' => $this -> Nombre_articulo,
             'Descripcion_articulo' => $this -> Descripcion_articulo, 
             'Cantidad_articulo' => $this -> Cantidad_articulo,
+            'image' => $image,
         ]);
-
-        $this->dispatchBrowserEvent('swal');
-
         $this->limpiarCampos();
+        $this->cambiarimgrand = rand();
         $this->dispatchBrowserEvent('close-modal');
         session()->flash('message', 'Articulo Registrado Exitosamente');
+    }
 
-        /*Articulo::updateOrCreate(['id'=> $this->id_articulo],
-        [
-            'Nombre_articulo' => $this -> Nombre_articulo,
-            'Descripcion_articulo' => $this -> Descripcion_articulo, 
-            'Cantidad_articulo' => $this -> Cantidad_articulo,
-        ]);
-        $this->cerrarModal();
-        $this->limpiarCampos();*/
+    public function updatingSearch(){
+        $this->resetPage();
     }
 
     //funcioon en vista crear
@@ -72,6 +71,7 @@ class Articulos extends Component
         $this -> Descripcion_articulo = '';
         $this -> Cantidad_articulo = '';
         $this -> id_articulo = '';
+        $this -> image = '';
     }
 
     public function editar($id){
@@ -82,15 +82,8 @@ class Articulos extends Component
         $this -> Nombre_articulo = $articulo->Nombre_articulo;
         $this -> Descripcion_articulo = $articulo->Descripcion_articulo;
         $this -> Cantidad_articulo = $articulo->Cantidad_articulo;
-        
-        $this->dispatchBrowserEvent('show-edit-student-modal');
-        
-        /*$articulo = Articulo::findOrFail($id);
-        $this->id_articulo = $id;
-        $this -> Nombre_articulo = $articulo->Nombre_articulo;
-        $this -> Descripcion_articulo = $articulo->Descripcion_articulo;
-        $this -> Cantidad_articulo = $articulo->Cantidad_articulo;
-        $this->abrirModal();*/
+        $this -> image = $articulo->image;
+        $this->dispatchBrowserEvent('show-edit-articulo-modal');
     }
 
     public function editArticuloData()
@@ -105,23 +98,14 @@ class Articulos extends Component
         $articulo->Nombre_articulo = $this->Nombre_articulo;
         $articulo->Descripcion_articulo = $this->Descripcion_articulo;
         $articulo->Cantidad_articulo = $this->Cantidad_articulo;
-
+        $articulo->image = $this->image;
         $articulo->save();
         $this->limpiarCampos();
+        $this->cambiarimgrand = rand();
         session()->flash('message', 'Articulo Editado Exitosamente');
-
-        //For hide modal after add student success
         $this->dispatchBrowserEvent('close-modal');
     }
 
-    /*
-      public function borrar($id){
-        Articulo::find($id)->delete();
-        $this->dispatchBrowserEvent('show-delete-confirmation-modal');
-    }
-    */
-
-    //Delete Confirmation
     public function borrar($id)
     {
         $this->articulo_delete_id = $id; //student id
@@ -149,8 +133,8 @@ class Articulos extends Component
         $this->view_Nombre_articulo = $articulo->Nombre_articulo;
         $this->view_Descripcion_articulo = $articulo->Descripcion_articulo;
         $this->view_Cantidad_articulo = $articulo->Cantidad_articulo;
-
-        $this->dispatchBrowserEvent('show-view-student-modal');
+        $this->view_image = $articulo->image;
+        $this->dispatchBrowserEvent('show-view-articulo-modal');
   
     }
     
