@@ -49,17 +49,9 @@
                         </div>
                     </div>
 
-                    <div class="mb-2">
-                        <label for="imagen">Subir Imagen </label>
-                        <div class="custom-file mb-3" wire:ignore>
-                            <input type="file" class="custom-file-input" name="imagen" wire:model="image" id="{{$cambiarimgrand}}" accept="image/*" onchange="previewImage(event, '#imgPreview')">
-                            <label class="custom-file-label" for="imagen">Seleciona Imagen</label>
-                        </div>
-                    </div>
-                    
                     <center>
                     <div >
-                            <button wire:click.prevent="guardar()" wire:loading.attr="disabled" wire:target="image" type="button" class="focus:outline-none px-4 bg-teal-500 p-2 ml-3 rounded-lg text-white hover:bg-teal-400">Registrar</button>
+                            <button wire:click.prevent="guardar()" wire:loading.attr="disabled" type="button" class="focus:outline-none px-4 bg-teal-500 p-2 ml-3 rounded-lg text-white hover:bg-teal-400">Registrar</button>
 
                             <button data-dismiss="modal" type="button" class="focus:outline-none modal-close px-4 bg-gray-400 p-2 rounded-lg text-black hover:bg-gray-300">Cancelar</button>
                     </div>

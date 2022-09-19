@@ -3,7 +3,12 @@
     <div class="card-body">
         <div>
             <button class="btn btn-sm btn-primary" style="float: ringth;"  data-toggle="modal" data-target="#addArticuloModal">Add Articulo</button>
-            <button class="btn btn-sm btn-primary" style="float: ringth;" data-toggle="modal" data-target="#addArticuloModal">Exportar Articulos</button>
+            <a href="{{ route('articulos.articuloxportPDF') }}">
+                <button class="btn btn-sm btn-secondary"><span><i class="fa-solid fa-file-pdf"></i></span> Exportar Articulos PDF</button>
+            </a>
+            <a href="{{ route('articulos.articuloxportEXCEL') }}">
+                <button class="btn btn-sm btn-success"><span><i class="fa-solid fa-file-excel"></i></span> Exportar Articulos EXCEL</button>
+            </a>
             <nav class="navbar navbar-light bg-light justify-content-between">
                 <input class="form-control mr-sm-2" type="search" placeholder="Buscar Por Nombre .." aria-label="Search" wire:model="search">
             </nav>    

@@ -59,7 +59,11 @@ Route::resource('categoria', CategoriaController::class)->except('show')->names(
 Route::resource('comanda', ComandaController::class)->names('admin.comanda')->middleware('auth');
 Route::resource('tipopensionado', DetalleClientesController::class)->names('admin.tipopensionado')->middleware('auth');
 //Route::resource('articulo', Articulos::class)->middleware('auth');
-Route::get('articulos', Articulos::class)->middleware('auth')->name('admin.articulos');;
+Route::get('articulos', Articulos::class)->middleware('auth')->name('admin.articulos');
+
+Route::get('/livewire-pdf', [Articulos::class, 'Articulospdf'])->name('articulos.articuloxportPDF');
+Route::get('/livewire-excel', [Articulos::class, 'Articulosexcel'])->name('articulos.articuloxportEXCEL');
+
 
 
 Route::get('mesa.register', [MesaController::class, 'register'])->name('admin.mesa.register');

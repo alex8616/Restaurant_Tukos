@@ -10,6 +10,5 @@ class Articulo extends Model
     use HasFactory;
     protected $fillable = ['Nombre_articulo',
                             'Descripcion_articulo',
-                            'Cantidad_articulo',
-                            'image'];
+                            'Cantidad_articulo'];
 }

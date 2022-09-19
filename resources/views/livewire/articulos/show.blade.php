@@ -32,12 +32,6 @@
                             <td>{{ $view_Cantidad_articulo }}</td>
                         </tr>
 
-                        <tr>
-                            <th>Image: </th>
-                            <td>
-                                <img src="{{ Storage::url($view_image) }}">
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>

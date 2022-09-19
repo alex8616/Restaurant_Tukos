@@ -9,7 +9,6 @@
 				</div>
                 <hr>
             <div class="modal-body">
-                <img class="mb-3" src="{{Storage::url($image)}}">
                 <form wire:submit.prevent="editArticuloData">                   
                     <div class="form-group row">
                         <div class="col-12">
@@ -40,12 +39,6 @@
                             @enderror
                         </div>
                     </div>
-
-                    <div class="mb-2">
-                        <label for="Cantidad_articulo">Subir Imagen</label>
-                        <input class="form-control" type="file" wire:model="image" id="{{$cambiarimgrand}}">
-                    </div>
-
                     <center>
                     <div >
                             <button type="submit" class="focus:outline-none px-4 bg-teal-500 p-2 ml-3 rounded-lg text-white hover:bg-teal-400">Registrar</button>
