@@ -14,7 +14,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class Articulos extends Component
 {
-    public $id_articulo, $Nombre_articulo, $Descripcion_articulo, $Cantidad_articulo, $articulo_delete_id;
+    public $id_articulo, $Nombre_articulo, $Descripcion_articulo, $Cantidad_articulo, $articulo_delete_id, $articulo_baja;
     public $view_id_articulo, $view_Nombre_articulo, $view_Descripcion_articulo, $view_Cantidad_articulo;
     public $modal = false;
     public $search, $cambiarimgrand;
@@ -27,7 +27,7 @@ class Articulos extends Component
     }
     public function render(){
         //$articulos = Articulo::orderBy('id','desc')->paginate(3);
-        $articulos = Articulo::where('Nombre_articulo','like','%' . $this->search . '%')->orderBy('id','desc')->paginate(5);
+        $articulos = Articulo::where('Nombre_articulo','like','%' . $this->search . '%')->orderBy('id','desc')->paginate(12);
         return view('livewire.articulos.articulos',compact('articulos'))->extends('adminlte::page');
     }
     
@@ -36,7 +36,7 @@ class Articulos extends Component
         $this->validate([
             'Nombre_articulo' => 'required',
             'Descripcion_articulo' => 'required',
-            'Cantidad_articulo' => 'required|numeric',
+            'Cantidad_articulo' => 'required|numeric|min:1|max:2000',
         ]);
 
         Articulo::create([
@@ -93,7 +93,7 @@ class Articulos extends Component
         $this->validate([
             'Nombre_articulo' => 'required',
             'Descripcion_articulo' => 'required',
-            'Cantidad_articulo' => 'required|numeric',
+            'Cantidad_articulo' => 'required|numeric|min:1|max:2000',
         ]);
 
         $articulo = Articulo::where('id', $this->id_articulo)->first();
@@ -110,7 +110,7 @@ class Articulos extends Component
 
     public function borrar($id)
     {
-        $this->articulo_delete_id = $id; //student id
+        $this->articulo_delete_id = $id;
         $this->dispatchBrowserEvent('show-delete-confirmation-modal');
     }
 
@@ -154,7 +154,33 @@ class Articulos extends Component
 
         return Excel::download(new ArticulosExport, Now().'_Articulos.xlsx');
 
-    }  
+    }
+
+    /*public function cambio_de_estado($id){
+        $comanda = Articulo::findOrFail($id);
+        $comanda->estado = 'DADO DE BAJA';
+        $comanda->update();
+        //return response()->json($comanda);
+        return redirect()->back()->with('DADO DE BAJA');
+    }*/
+
+    public function ConfirmarBaja($id)
+    {
+        $this->articulo_baja = $id;
+        $this->dispatchBrowserEvent('show-delete-confirmationbaja-modal');
+    }
+
+    public function cambio_de_estado()
+    {
+
+        $articulo = Articulo::where('id', $this->articulo_baja)->first();
+        $articulo->estado = 'DADO DE BAJA';
+        $articulo->update();
+        session()->flash('message', 'Articulo Dado De BAJA Exitosamente');
+        $this->dispatchBrowserEvent('close-modal');
+        return redirect()->back()->with('DADO DE BAJA');
+        $this->articulo_baja = '';
+    }
 }
 
 

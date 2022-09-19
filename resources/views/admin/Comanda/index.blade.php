@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Ventas')
+@section('title', 'Pedidos')
 
 @section('content_header')
 <div class="hero">
@@ -92,11 +92,8 @@
                                 </td>
                             @endif
                             <td style="width: 50px;">
-                                    <a href="{{ route('admin.comanda.pdf', $comanda) }}" class="btn btn-info text-bold"
-                                        target="_blank">Imprimir<i class="fas fa-file-pdf ml-2"></i></a>
-
-                                    <a href="{{ route('admin.comanda.show', $comanda) }}" class="btn btn-info">Detalles <i
-                                            class="fas fa-eye"></i> </a>
+                                    <a href="{{ route('admin.comanda.pdf', $comanda) }}" class="btn btn-info text-bold" target="_blank">Imprimir<i class="fas fa-file-pdf ml-2"></i></a>
+                                    <a href="{{ route('admin.comanda.show', $comanda) }}" class="btn btn-info">Detalles <i class="fas fa-eye"></i> </a>
                             </td>
                         </tr>
                     @endforeach

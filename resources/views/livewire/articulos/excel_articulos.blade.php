@@ -22,23 +22,25 @@
     @endphp
     @foreach ($articulos as $articulo)
       <tr>
-        @if($i%2 == 0)
-            <td style="background: #e2e2e2; text-align: center;">{{$i++}}</td>
-            <td style="background: #e2e2e2; text-align: justify;">{{$articulo->Nombre_articulo}}</td>
-            <td style="text-align: justify; background: #e2e2e2; text-justify: inter-word; width: 300px">{{$articulo->Descripcion_articulo}}</td>
-            <td style="text-align: center; background: #e2e2e2;">{{$articulo->Cantidad_articulo}}</td>
-            <td style="text-align: center; background: #e2e2e2;">{{$articulo->created_at}}</td>
-            <td style="text-align: center; background: #e2e2e2;">{{$articulo->updated_at}}</td>
-        @else
-            <td style="text-align: center;">{{$i++}}</td>
-            <td style="text-align: justify;">{{$articulo->Nombre_articulo}}</td>
-            <td style="text-align: justify; text-justify: inter-word; width: 300px">{{$articulo->Descripcion_articulo}}</td>
-            <td style="text-align: center;">{{$articulo->Cantidad_articulo}}</td>
-            <td style="text-align: center;">{{$articulo->created_at}}</td>
-            <td style="text-align: center;">{{$articulo->updated_at}}</td>
-        @endif
+      @if($articulo->estado == 'ACTIVO')
+          @if($i%2 == 0)
+              <td style="background: #e2e2e2; text-align: center;">{{$i++}}</td>
+              <td style="background: #e2e2e2; text-align: justify;">{{$articulo->Nombre_articulo}}</td>
+              <td style="text-align: justify; background: #e2e2e2; text-justify: inter-word; width: 300px">{{$articulo->Descripcion_articulo}}</td>
+              <td style="text-align: center; background: #e2e2e2;">{{$articulo->Cantidad_articulo}}</td>
+              <td style="text-align: center; background: #e2e2e2;">{{$articulo->created_at}}</td>
+              <td style="text-align: center; background: #e2e2e2;">{{$articulo->updated_at}}</td>
+          @else
+              <td style="text-align: center;">{{$i++}}</td>
+              <td style="text-align: justify;">{{$articulo->Nombre_articulo}}</td>
+              <td style="text-align: justify; text-justify: inter-word; width: 300px">{{$articulo->Descripcion_articulo}}</td>
+              <td style="text-align: center;">{{$articulo->Cantidad_articulo}}</td>
+              <td style="text-align: center;">{{$articulo->created_at}}</td>
+              <td style="text-align: center;">{{$articulo->updated_at}}</td>
+          @endif
       </tr>
-      @endforeach
+      @endif
+    @endforeach
     </tbody>
   </table>
  </div> 

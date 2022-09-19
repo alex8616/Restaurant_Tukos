@@ -13,7 +13,7 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label for="Nombre_articulo" >Nombre Articulo</label>
-                            <input type="text" id="Nombre_articulo" class="form-control" wire:model="Nombre_articulo">
+                            <input type="text" id="Nombre_articulo" class="form-control" wire:model="Nombre_articulo" autofocus onkeyup="javascript:this.value=this.value.toUpperCase();">
                             @error('Nombre_articulo')
                                 <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                             @enderror
@@ -23,7 +23,7 @@
                     <div class="form-group row" wire:ignore>
                         <div class="col-12">
                         <label for="Descripcion_articulo" >Descripcion Articulo</label>
-                            <textarea type="text" id="editor" class="form-control" wire:model="Descripcion_articulo" cols="25" rows="6"></textarea>
+                            <textarea type="text" id="editor" class="form-control" wire:model="Descripcion_articulo" cols="25" rows="6" autofocus onkeyup="javascript:this.value=this.value.toUpperCase();"></textarea>
                             @error('Descripcion_articulo')
                                 <span class="text-danger" style="font-size: 11.5px;">{{ $message }}</span>
                             @enderror

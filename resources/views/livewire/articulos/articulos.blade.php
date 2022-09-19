@@ -20,44 +20,62 @@
                 </div>
             @endif
         </div>
-        @if($articulos->count())
-            <table class="table table-striped" id="cliente">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Especificacion</th>
-                        <th style="text-align:center;">cantidad</th>
-                        <th style="width: 200px; text-align:center;">Accion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($articulos as $articulo)
-                    <tr>
-                        <td>{{$articulo->id}}</td>
-                        <td>{{$articulo->Nombre_articulo}}</td>
-                        <td>{!! $articulo->Descripcion_articulo !!}</td>
-                        <td style="text-align:center;">{{$articulo->Cantidad_articulo}}</td>
-                        <td>
-                            <button wire:click="ver({{$articulo->id}})" class="btn btn-sm btn-secondary text-white">Ver</button>
-                            <button wire:click="editar({{$articulo->id}})" class="btn btn-sm btn-primary" >Editar</button>
-                            <button wire:click="borrar({{$articulo->id}})" class="btn btn-sm btn-danger text-white">Borrar</button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <div class="px-6 py-4">
-                Ningun Dato Coincidente
-            </div>
-        @endif
+    </div>
 
-        <div class="px-6 py-3">
-            {{$articulos->links()}}
+    <section class="content">
+        <div class="container-fluid">
+        <div class="row">
+        @foreach ($articulos as $articulo)
+        <div class="col-md-4 col-sm-6 col-5">
+            <div class="info-box">
+                <span class="info-box-icon" style="background: orange; "><i class="fa-solid fa-kitchen-set" style="width:60; height:60; color:#FFFFFF;"></i></span>
+                <div class="info-box-content"  style="background: #FBF6F7" id="divcon">
+                    <span class="info-box-text" style="font-size:22px; text-justify: inter-word;">{{$articulo->Nombre_articulo}}</span>
+                    <span class="info-box-number">{{$articulo->Cantidad_articulo}}</span>
+                    @if ($articulo->estado == 'ACTIVO')
+                        <td>
+                            <button wire:click="ConfirmarBaja({{$articulo->id}})" class="btn btn-success">
+                                ACTIVO
+                            </button>
+                        </td>
+                    @else
+                        <style>
+                            #divcon{
+                                background: red;
+                            }
+                        </style>
+                        <td>
+                            <a title="Editar" style="background: #FF5959; text-align: center;">
+                                DADO DE BAJA
+                            </a>
+                        </td>
+                    @endif
+                </div>
+                <span >
+                    <button wire:click="ver({{$articulo->id}})" class="btn btn-outline-secondary">
+                        <i class="fa-solid fa-eye" style="width:20; height:20;"></i>
+                    </button><br>
+                    <button wire:click="editar({{$articulo->id}})" class="btn btn-outline-primary">
+                        <i class="fa-solid fa-pen-to-square" style="width:20; height:20;"></i>
+                    </button><br>
+                    <button wire:click="borrar({{$articulo->id}})" class="btn btn-outline-danger">
+                        <i class="fa-solid fa-trash" style="width:20; height:20;"></i>
+                    </button><br>
+                </span>
+            <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
         </div>
+        @endforeach
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+    </section>
+    <div class="px-6 py-3">
+        {{$articulos->links()}}
+    </div>
 </div>
-</div>
+
 <!-- Modal Add Articulo -->
 @include('livewire.articulos.crear')  
 
@@ -70,6 +88,8 @@
 <!-- Modal Ver Articulo -->
 @include('livewire.articulos.show')
 
+<!-- Modal confirmar baja Articulo -->
+@include('livewire.articulos.baja')
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -81,6 +101,7 @@
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap4.min.js"></script>
 <script>
     window.addEventListener('close-modal', event =>{
+        $('#bajaArticuloModal').modal('hide');
         $('#addArticuloModal').modal('hide');
         $('#showArticuloModal').modal('hide');
         $('#editArticulotModal').modal('hide');
@@ -96,44 +117,40 @@
     window.addEventListener('show-view-articulo-modal', event =>{
         $('#viewArticuloModal').modal('show');
     });
+    window.addEventListener('show-delete-confirmationbaja-modal', event =>{
+            $('#bajaArticuloModal').modal('show');
+        });
 </script>
-<script>
-    ClassicEditor
-        .create( document.querySelector( '#editor' ))
-        .then(function(editor){
-            editor.model.document.on('change:data', ()=> {
-                @this.set('Descripcion_articulo',editor.getData());
-            })
-        })
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
-<script>
-    function previewImage(event, querySelector){
 
-    //Recuperamos el input que desencadeno la acción
-    const input = event.target;
-
-    //Recuperamos la etiqueta img donde cargaremos la imagen
-    $imgPreview = document.querySelector(querySelector);
-
-    // Verificamos si existe una imagen seleccionada
-    if(!input.files.length) return
-
-    //Recuperamos el archivo subido
-    file = input.files[0];
-
-    //Creamos la url
-    objectURL = URL.createObjectURL(file);
-
-    //Modificamos el atributo src de la etiqueta img
-    $imgPreview.src = objectURL;
-                
+<style>
+    #showicon{
+        color:#6FD66D;
     }
-</script>
-
-
+    #showicon:hover{
+        color:white;
+    }
+    #editicon{
+        color:#569EFF;
+    }
+    #editicon:hover{
+        color:white;
+    }
+    #deleteicon{
+        color:#FF5F5F;
+    }
+    #deleteicon:hover{
+        color:white;
+    }
+    #showbutton:hover {
+        background-color: green;
+    }
+    #editbutton:hover {
+        background-color: blue;
+    }
+    #deletebutton:hover {
+        background-color: red;
+    }
+</style>
 
 
 

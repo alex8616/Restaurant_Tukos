@@ -18,6 +18,7 @@ class CreateArticulosTable extends Migration
             $table->string('Nombre_articulo');
             $table->longText('Descripcion_articulo');
             $table->integer('Cantidad_articulo');
+            $table->enum('estado', ['ACTIVO', 'DADO DE BAJA'])->default('ACTIVO');
             $table->timestamps();
         });
     }

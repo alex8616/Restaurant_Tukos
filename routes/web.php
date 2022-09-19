@@ -63,6 +63,7 @@ Route::get('articulos', Articulos::class)->middleware('auth')->name('admin.artic
 
 Route::get('/livewire-pdf', [Articulos::class, 'Articulospdf'])->name('articulos.articuloxportPDF');
 Route::get('/livewire-excel', [Articulos::class, 'Articulosexcel'])->name('articulos.articuloxportEXCEL');
+Route::get('cambio_de_estado/articulos/{articulo}', [Articulos::class, 'cambio_de_estado'])->name('cambio.estado.articulo');
 
 
 

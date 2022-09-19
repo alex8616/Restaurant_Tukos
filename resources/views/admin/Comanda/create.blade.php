@@ -13,99 +13,97 @@
 <form action="{{ url('/comanda') }}" method="post" enctype="multipart/form-data" class="registrar-form">
 @csrf
     <div class="row">
-        <div class="col-md-4 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div id="orders-chart-legend" class="orders-chart-legend">
-                        <div class="container">
-                            <div class="card-body">
-                                <div>
-                                    <div class="form-group">
-                                    <label for="id_plato">Plato</label>
-                                    <select class="form-control selectpicker articuloB" data-live-search="true" name="id_plato"
-                                        id="id_plato" lang="es" autofocus>
-                                        <option value="" data-icon="fa-solid fa-bowl-rice" disabled selected>Buscar Plato</option>
-                                        @foreach ($platos as $plato)
-                                            <option value="{{ $plato->id }}_{{ $plato->stock }}_{{ $plato->Precio_plato }}">
-                                                <h1>{{ $plato->Nombre_plato }}</h1>
-                                            </option>
-                                        @endforeach
-                                    </select>  
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="cliente_id">Cliente</label>
-                                    <select class="form-control selectpicker clienteB" data-live-search="true" name="cliente_id" id="cliente_id" lang="es">
-                                        <option value="" data-icon="fas fa-user-tie" disabled selected>Buscar cliente</option>
-                                        @foreach ($clientes as $cliente)
-                                            <option value="{{ $cliente->id }}">{{ $cliente->Nombre_cliente }} 
-                                                        {{ $cliente->Apellidop_cliente }} 
-                                                        {{ $cliente->Apellidom_cliente }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="cliente_id">Pensionados</label>
-                                    <select class="form-control selectpicker clienteB" data-live-search="true" name="tipo_cliente_id" id="tipo_cliente_id" lang="es">
-                                        <option value="" data-icon="fas fa-user-tie" disabled selected>Buscar cliente</option>
-                                        @foreach ($tipoclientes as $tipocliente)
-                                            @if($tipocliente->tipo != 'Normal')
-                                            <option value="{{ $tipocliente->id }}">
-                                                        {{ $tipocliente->Nombre_tipoclientes }} 
-                                            </option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div>
-                                    <div class="form-group">
-                                        <label for="cantidad">Cantidad</label>
-                                        <input type="number" class="form-control" name="cantidad" id="cantidad" aria-describedby="helpId" min="0"
-                                            max="100" oninput="validity.valid||(value='')">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="form-group">
-                                        <label for="comentario">Comentario</label>
-                                        <textarea class="form-control" name="comentario" id="comentario" cols="45" rows="3"></textarea>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="form-group col-md-15">
-                                    <label for="descuento">Descuento</label>
-                                    <div class="input-group">
-                                        <select name="descuento" id="descuento" class="form-control"  aria-describedby="basic-addon2" oninput="validity.valid||(value='')">
-                                            <option value="0">0</option>
-                                            <option value="5">5</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                            <option value="13">13</option>
-                                            <option value="15">15</option>
-                                            <option value="20">20</option>
-                                            <option value="25">25</option>
-                                        </select>
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon2">%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-                                <div>
-                                    <div class="form-group">
-                                        <label for="Precio_plato">Precio de venta</label>
-                                        <input type="number" class="form-control" name="Precio_plato" id="Precio_plato" aria-describedby="helpId">
-                                    </div>
-                                </div>
-                                <div>
+    <div class="card">
+        <div class="card-body">
+            <div id="orders-chart-legend" class="orders-chart-legend">
+                <div class="container">
+                    <div class="card-body">
+                        <div>
+                            <div class="form-group">
+                            <label for="id_plato">Plato</label>
+                            <select class="form-control selectpicker articuloB" data-live-search="true" name="id_plato"
+                                id="id_plato" lang="es" autofocus>
+                                <option value="" data-icon="fa-solid fa-bowl-rice" disabled selected>Buscar Plato</option>
+                                @foreach ($platos as $plato)
+                                    <option value="{{ $plato->id }}_{{ $plato->stock }}_{{ $plato->Precio_plato }}">
+                                        <h1>{{ $plato->Nombre_plato }}</h1>
+                                    </option>
+                                @endforeach
+                            </select>  
+                            </div>
+                        </div>
+                        <div>
+                            <label for="cliente_id">Cliente</label>
+                            <select class="form-control selectpicker clienteB" data-live-search="true" name="cliente_id" id="cliente_id" lang="es">
+                                <option value="" data-icon="fas fa-user-tie" disabled selected>Buscar cliente</option>
+                                @foreach ($clientes as $cliente)
+                                    <option value="{{ $cliente->id }}">{{ $cliente->Nombre_cliente }} 
+                                                {{ $cliente->Apellidop_cliente }} 
+                                                {{ $cliente->Apellidom_cliente }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label for="cliente_id">Pensionados</label>
+                            <select class="form-control selectpicker clienteB" data-live-search="true" name="tipo_cliente_id" id="tipo_cliente_id" lang="es">
+                                <option value="" data-icon="fas fa-user-tie" disabled selected>Buscar cliente</option>
+                                @foreach ($tipoclientes as $tipocliente)
+                                    @if($tipocliente->tipo != 'Normal')
+                                    <option value="{{ $tipocliente->id }}">
+                                                {{ $tipocliente->Nombre_tipoclientes }} 
+                                    </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="cantidad">Cantidad</label>
+                                <input type="number" class="form-control" name="cantidad" id="cantidad" aria-describedby="helpId" min="0"
+                                    max="100" oninput="validity.valid||(value='')">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="comentario">Comentario</label>
+                                <textarea class="form-control" name="comentario" id="comentario" cols="45" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group col-md-15">
+                            <label for="descuento">Descuento</label>
+                            <div class="input-group">
+                                <select name="descuento" id="descuento" class="form-control"  aria-describedby="basic-addon2" oninput="validity.valid||(value='')">
+                                    <option value="0">0</option>
+                                    <option value="5">5</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="13">13</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2">%</span>
                                 </div>
                             </div>
                         </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="Precio_plato">Precio de venta</label>
+                                <input type="number" class="form-control" name="Precio_plato" id="Precio_plato" aria-describedby="helpId">
+                            </div>
+                        </div>
+                        <div>
+                        </div>
                     </div>
                 </div>
-                <button type="button" id="agregar" class="btn btn-info float-right"> <i class="fas fa-check"></i> Agregar Artículo</button>
             </div>
         </div>
+        <button type="button" id="agregar" class="btn btn-info float-right"> <i class="fas fa-check"></i> Agregar Artículo</button>
+    </div>
         <div class="col-md-8 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
@@ -147,6 +145,7 @@
         </div>
     </div>
 </form>
+
 @stop
 
 @section('content_top_nav_right')
@@ -188,6 +187,91 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"></link>
     <link href="{{asset('css/header.css')}}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        body{
+            background: #D4D4D4;
+            font-family: 'Open sans';
+        }
+
+        .wrap{
+            width: 800px;
+            max-width: 90%;
+            margin: 30px auto;
+        }
+
+        ul.tabs{
+            width: 100%;
+            background: #363636;
+            list-style: none;
+            display: flex;
+        }
+
+        ul.tabs li{
+            width: 50%;
+        }
+
+        ul.tabs li a{
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            text-align: center;
+
+            display: block;
+            padding: 20px 0px;
+        }
+
+        .active{
+            background: #0984CC;
+        }
+
+        ul.tabs li a .tab-text{
+            margin-left: 8px;
+        }
+
+        .secciones{
+            width: 100%;
+            background: #fff;
+        }
+
+        .secciones article{
+            padding: 30px;
+        }
+
+        .secciones article p{
+            text-align: justify;
+        }
+
+
+        @media screen and (max-width: 700px){
+            ul.tabs li{
+                width: none;
+                flex-basis: 0;
+                flex-grow: 1;
+            }
+        }
+
+        @media screen and (max-width: 450px){
+            ul.tabs li a{
+                padding: 15px 0px;
+            }
+
+            ul.tabs li a .tab-text{
+                display: none;
+            }
+
+            .secciones article{
+                padding: 20px;
+            }
+        }
+    </style>
 @stop
 
 @section('js')
@@ -195,6 +279,36 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    
+    <script>
+        $("#cliente_id").change(function() {
+            if($("#cliente_id").val() !== "0"){
+                $('#tipo_cliente_id').hide();
+            }
+        });
+        $("#tipo_cliente_id").change(function() {
+            if($("#tipo_cliente_id").val() !== "0"){
+                $('#cliente_id').prop('disabled', true);
+            }
+        });
+    </script>
+
+    <script>
+       $('ul.tabs li a:first').addClass('active');
+        $('.secciones article').hide();
+        $('.secciones article:first').show();
+
+        $('ul.tabs li a').click(function(){
+            $('ul.tabs li a').removeClass('active');
+            $(this).addClass('active');
+            $('.secciones article').hide();
+
+            var activeTab = $(this).attr('href');
+            $(activeTab).show();
+            return false;
+        });
+    </script>
 
     <script>
      $(document).ready(function() {
