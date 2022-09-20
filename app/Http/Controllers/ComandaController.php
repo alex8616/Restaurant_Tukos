@@ -128,26 +128,17 @@ class ComandaController extends Controller
     }
 
     public function listapedidos(){
-        /**
-         SELECT COUNT(detalle_comandas.cantidad) as PlatoCantidad,comandas.id, platos.Nombre_plato, sum(detalle_comandas.cantidad) as cantidad
-        FROM `comandas` 
-        INNER JOIN detalle_comandas
-        ON detalle_comandas.comanda_id = comandas.id
-        INNER JOIN platos
-        ON platos.id= detalle_comandas.plato_id
-        where comandas.fecha_venta = '2022-09-06' 
-        group by platos.Nombre_plato
-         */
+
         $PedidoPlatos = DB::select('SELECT   
         sum(detalle_comandas.cantidad) as cantidad, platos.Nombre_plato as Nombre_plato , platos.id as id  from platos
         inner join detalle_comandas on platos.id=detalle_comandas.plato_id 
-        inner join comandas on detalle_comandas.comanda_id=comandas.id where comandas.fecha_venta = CURDATE()
+        inner join comandas on detalle_comandas.comanda_id=comandas.id where DATE(comandas.fecha_venta) = CURDATE()
         group by platos.Nombre_plato, platos.id order by sum(detalle_comandas.cantidad) desc limit 10');
 
         $PedidoPlatoMesas = DB::select('SELECT   
         sum(detalle_comanda_mesas.cantidad) as cantidad, platos.Nombre_plato as Nombre_plato , platos.id as id  from platos
         inner join detalle_comanda_mesas on platos.id=detalle_comanda_mesas.plato_id 
-        inner join comanda_mesas on detalle_comanda_mesas.comanda_mesa_id=comanda_mesas.id where comanda_mesas.fecha_venta = CURDATE()
+        inner join comanda_mesas on detalle_comanda_mesas.comanda_mesa_id=comanda_mesas.id where DATE(comanda_mesas.fecha_venta) = CURDATE()
         group by platos.Nombre_plato, platos.id order by sum(detalle_comanda_mesas.cantidad) desc limit 10');
         return view('admin.comanda.listapedidos',compact('PedidoPlatos','PedidoPlatoMesas'));
     }
