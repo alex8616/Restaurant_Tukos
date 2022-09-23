@@ -1,54 +1,70 @@
-<x-guest-layout id="fondo">
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <center>
-                <img class="img-thumbnail" src="{{ asset('img/picwish.png') }}" width="45%"/>
-            </center>
-        </x-slot>
+@extends('layouts.main', ['class' => 'off-canvas-sidebar', 'activePage' => 'login', 'title' => __('Material Dashboard')])
 
-        <x-jet-validation-errors class="mb-4" />
-
-        @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
+@section('content')
+<div class="container" style="height: auto;">
+  <div class="row align-items-center">
+    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+      <form class="form" method="POST" action="{{ route('login') }}">
+        @csrf
+        <div class="card card-login card-hidden mb-3">
+          <div class="card-header card-header-primary">
+            <img src="{{ asset('img/picwish.png') }}" width="100%"/>
+          </div>
+          <div class="card-body">
+            <p class="card-description text-center">{{ __('Ingrese Sus Credenciales') }} <strong>PARA INICIAR SESION</strong> {{ __(' Usuario y Contraseña ') }}</p>
+            <div class="bmd-form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">email</i>
+                  </span>
+                </div>
+                <input type="email" name="email" class="form-control" placeholder="{{ __('Email...') }}" required>
+              </div>
+              @if ($errors->has('email'))
+                <div id="email-error" class="error text-danger pl-3" for="email" style="display: block;">
+                  <strong>{{ $errors->first('email') }}</strong>
+                </div>
+              @endif
             </div>
-        @endif
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <div>
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+            <div class="bmd-form-group{{ $errors->has('password') ? ' has-danger' : '' }} mt-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">lock_outline</i>
+                  </span>
+                </div>
+                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('Password...') }}" required>
+              </div>
+              @if ($errors->has('password'))
+                <div id="password-error" class="error text-danger pl-3" for="password" style="display: block;">
+                  <strong>{{ $errors->first('password') }}</strong>
+                </div>
+              @endif
             </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+          </div>
+          <div class="card-footer justify-content-center">
+            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('INICIAR SESION') }}</button>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+          <div class="text-center" style="width:100%">
+            <div class="social-line">
+              <a href="https://www.facebook.com/tukosresto/" class="btn btn-just-icon btn-link btn-white">
+                <i class="fa fa-facebook-square"></i>
+              </a>
+              <a href="https://www.instagram.com/tukosresto/" class="btn btn-just-icon btn-link btn-white">
+                <i class="fa fa-instagram"></i>
+              </a>
+              <a href="https://g.page/Tukos?share" class="btn btn-just-icon btn-link btn-white">
+                <i class="fa fa-map"></i>
+              </a>
             </div>
-
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-jet-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-jet-button class="ml-4">
-                    {{ __('Log in') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout>
-<style type="text/css">
-.min-h-screen {
-    background-color: #1D2026;
-  }
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+        

@@ -26,7 +26,7 @@
         <div class="container-fluid">
         <div class="row">
         @foreach ($articulos as $articulo)
-        <div class="col-md-4 col-sm-6 col-5">
+        <div class="col-md-4 col-sm-12 col-12">
             <div class="info-box">
                 <span class="info-box-icon" style="background: orange; "><i class="fa-solid fa-kitchen-set" style="width:60; height:60; color:#FFFFFF;"></i></span>
                 <div class="info-box-content"  style="background: #FBF6F7" id="divcon">

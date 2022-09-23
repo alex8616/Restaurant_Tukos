@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\TipoCliente;
+use App\Models\Categoria;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 
@@ -44,7 +45,8 @@ class ComandaController extends Controller
         $platos = Plato::get();
         $comanda = Comanda::distinct('id')->get();
         $tipoclientes = TipoCliente::distinct('id')->get();
-        return view('admin.comanda.create', compact('clientes','comanda','platos','tipoclientes'));
+        $categorias = Categoria::get();
+        return view('admin.comanda.create', compact('clientes','comanda','platos','tipoclientes','categorias'));
         //return response()->json($tipo);
     }
 

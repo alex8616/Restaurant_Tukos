@@ -112,7 +112,7 @@
                                                     <td>{{ $comanda->fecha_venta }}</td>
                                                     <td>{{ $comanda->total }}</td>
                                                     <td style="width: 230px; text-align: right">
-                                                        <a href="{{ route('admin.comandas.pdf', $comanda) }}"
+                                                        <a href="{{ route('admin.comanda.pdf', $comanda) }}"
                                                                 class="btn btn-danger">Imprimir <i
                                                                     class="far fa-file-pdf"></i></a>
                                                         

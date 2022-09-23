@@ -349,16 +349,6 @@ return [
                 ],
             ],
         ],
-        [
-            'text' => 'VENTAS PEDIDO',
-            'url'  => 'comanda/',
-            'icon' => 'fa-solid fa-cart-shopping',
-        ],
-        [
-            'text' => 'VENTAS MESA',
-            'url'  => 'comandamesa/',
-            'icon' => 'fa-solid fa-cart-shopping',
-        ],
         ['header' => 'LISTA DE REGISTROS'],
 
 
@@ -404,6 +394,22 @@ return [
                     'can'  => 'roles.index',
                 ],
             ],
+        ],
+        [
+            'text' => 'VENTAS PEDIDO',
+            'url'  => 'comanda/',
+            'icon' => 'fa-solid fa-cart-shopping',
+        ],
+        [
+            'text' => 'VENTAS MESA',
+            'url'  => 'comandamesa/',
+            'icon' => 'fa-sharp fa-solid fa-cart-plus',
+        ],
+        [
+            'text' => 'INVENTARIO DE ARTICULOS',
+            'url'  => 'articulos',
+            'icon' => 'fa-sharp fa-solid fa-kitchen-set',
+            'can'  => 'roles.index',
         ],
     ],
 
