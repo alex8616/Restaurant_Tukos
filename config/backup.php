@@ -164,13 +164,13 @@ return [
          * notifiable will use the variables specified in this config file.
          */
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
-
+        
         'mail' => [
-            'to' => 'your@example.com',
+            'to' => 'aledar16@gmail.com',
 
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-                'name' => env('MAIL_FROM_NAME', 'Example'),
+                'address' => 'sis838alejandrovf@gmail.com',
+                'name'    => 'Restaurante Tukos',
             ],
         ],
 

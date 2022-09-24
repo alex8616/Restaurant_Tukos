@@ -19,7 +19,7 @@
         "maatwebsite/excel": "^3.1",
         "mediconesystems/livewire-datatables": "^0.9.4",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "spatie/laravel-backup": "^7.0.0",
+        "spatie/laravel-backup": "^6.16",
         "spatie/laravel-permission": "^4.2"
     },
     "require-dev": {
