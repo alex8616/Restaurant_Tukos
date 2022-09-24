@@ -21,6 +21,7 @@ use App\Http\Controllers\DetalleClientesController;
 use App\Http\Livewire\Articulos;
 
 
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -104,3 +105,6 @@ Route::get('markAsRead', function(){
     return redirect()->back();
 })->name('markAsRead');
 
+Route::get('/ambientes', function () {
+    return view('app');
+});

@@ -1,7 +1,30 @@
-import './bootstrap';
+require('./bootstrap');
+import * as vue from 'vue';
+window.Vue = require('vue').default;
 
-import Alpine from 'alpinejs';
+import App from './components/App.vue';
 
-window.Alpine = Alpine;
+//importamos Axios
+import VueAxios from 'vue-axios';
+import axios from 'axios';
 
-Alpine.start();
+//Importamos y configuramos el Vue-router
+import VueRouter from 'vue-router';
+import {routes} from './routes';
+ 
+Vue.use(VueRouter);
+Vue.use(VueAxios, axios);
+
+
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: routes
+});
+ 
+//finalmente, definimos nuestra app de Vue
+const app = new Vue({
+    el: '#app',
+    router: router,
+    render: h => h(App),
+});

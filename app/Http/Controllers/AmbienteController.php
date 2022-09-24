@@ -14,7 +14,8 @@ class AmbienteController extends Controller
      */
     public function index()
     {
-        //
+        $ambientes = Ambiente::all();
+        return response()->json($ambientes);
     }
 
     /**
@@ -35,7 +36,10 @@ class AmbienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ambiente = Ambiente::create($request->post());
+        return response()->json([
+            'ambiente' => $ambiente
+        ]);
     }
 
     /**
@@ -46,7 +50,7 @@ class AmbienteController extends Controller
      */
     public function show(Ambiente $ambiente)
     {
-        //
+        return response()->json($ambiente);
     }
 
     /**
@@ -69,7 +73,10 @@ class AmbienteController extends Controller
      */
     public function update(Request $request, Ambiente $ambiente)
     {
-        //
+        $ambiente->fill($request->post())->save();
+        return response()->json([
+            'ambiente' => $ambiente
+        ]);
     }
 
     /**
@@ -80,6 +87,10 @@ class AmbienteController extends Controller
      */
     public function destroy(Ambiente $ambiente)
     {
-        //
+        $ambiente->delete();
+        return response()->json([
+            'mesaje' => 'Ambiente Eliminado'
+        ]);
+
     }
 }
