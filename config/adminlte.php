@@ -349,8 +349,27 @@ return [
                 ],
             ],
         ],
-        ['header' => 'LISTA DE REGISTROS'],
+        
+        ['header' => 'RESERVACIONES'],
 
+
+        [
+            'text'    => 'RESERVACIONES',
+            'icon'    => 'fa-solid fa-calendar-days',
+            'submenu' => [
+                [
+                    'text' => 'Reserva De Ambientes',
+                    'icon'  => 'fa-solid fa-house',
+                    'url'  => 'ambiente/',
+                ],
+                [
+                    'text' => 'Reserva De Mesas',
+                    'icon'  => 'fa-sharp fa-solid fa-table',
+                    'url'  => 'pensionado/',
+                ],
+            ],
+        ],
+        ['header' => 'LISTA DE REGISTROS'],
 
         [
             'text'    => 'REPORTES',

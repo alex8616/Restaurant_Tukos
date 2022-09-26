@@ -162,7 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
-
+        Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
         /*
          * Package Service Providers...
          */

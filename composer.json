@@ -17,6 +17,7 @@
         "laravelcollective/html": "^6.3",
         "livewire/livewire": "^2.5",
         "maatwebsite/excel": "^3.1",
+        "mckenziearts/laravel-notify": "^2.3",
         "mediconesystems/livewire-datatables": "^0.9.4",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-backup": "^6.16",

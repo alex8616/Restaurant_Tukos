@@ -30,8 +30,9 @@ class AmbienteController extends Controller
         $datosambiente = Ambiente::create([
             'Nombre_Ambiente' => $data['Nombre_Ambiente'],
         ]);
-        
-        return redirect()->route('admin.ambiente.index')->with('success', 'Se registró correctamente');
+        notify()->success('Laravel Notify is awesome!');
+        return redirect()->route('admin.ambiente.index');
+        //return redirect()->route('admin.ambiente.index')->with('success', 'Se registró correctamente');
     }
 
     public function reserva(Ambiente $ambiente,Request $request){
