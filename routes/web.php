@@ -17,10 +17,11 @@ use App\Http\Controllers\TipoClienteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\MesaController;
+use App\Http\Controllers\AmbienteController;
+use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\DetalleClientesController;
 use App\Http\Livewire\Articulos;
-
-
+use App\Models\Ambiente;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -46,7 +47,7 @@ Route::get('/menu/listar',[MenuController::class,'show']);
 Route::get('menu/pdf/{menu}', [MenuController::class, 'pdf'])->name('admin.menu.pdf');
 
 
-Route::get('calendar', [EventController::class, 'index'])->name('calendar.index');
+Route::get('calendar', [EventController::class, 'index'])->name('calendar.index')->middleware('auth');;
 Route::post('calendar/create-event', [EventController::class, 'create'])->name('calendar.create');
 Route::patch('calendar/edit-event', [EventController::class, 'edit'])->name('calendar.edit');
 Route::delete('calendar/remove-event', [EventController::class, 'destroy'])->name('calendar.destroy');
@@ -59,7 +60,13 @@ Route::resource('cliente', ClienteController::class)->names('admin.cliente')->mi
 Route::resource('categoria', CategoriaController::class)->except('show')->names('admin.categoria');
 Route::resource('comanda', ComandaController::class)->names('admin.comanda')->middleware('auth');
 Route::resource('tipopensionado', DetalleClientesController::class)->names('admin.tipopensionado')->middleware('auth');
-//Route::resource('articulo', Articulos::class)->middleware('auth');
+Route::resource('ambiente', AmbienteController::class)->names('admin.ambiente')->middleware('auth');
+Route::get('ambiente/{ambiente}/reserva', [AmbienteController::class, 'reserva'])->name('admin.ambiente.reserva');
+Route::post('ambiente.reservastore', [AmbienteController::class, 'reservastore'])->name('admin.ambiente.reservastore');
+Route::resource('reserva', ReservaController::class)->names('admin.reserva')->middleware('auth');
+
+
+
 Route::get('articulos', Articulos::class)->middleware('auth')->name('admin.articulos');
 
 Route::get('/livewire-pdf', [Articulos::class, 'Articulospdf'])->name('articulos.articuloxportPDF');
@@ -105,6 +112,3 @@ Route::get('markAsRead', function(){
     return redirect()->back();
 })->name('markAsRead');
 
-Route::get('/ambientes', function () {
-    return view('app');
-});

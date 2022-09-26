@@ -2,7 +2,7 @@
 
 namespace App\Models;
 use App\User;
-use App\Model\Ambiente;
+use App\Models\Ambiente;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +15,10 @@ class Reserva extends Model
                             'hora_fin',
                             'motivo',
                             'ambiente_id',
-                            'user_id'];
+                            'user_id',
+                            'precio',
+                            'adelanto',
+                            'total'];
 
     public function user(){
         return $this->belongsTo(User::class);

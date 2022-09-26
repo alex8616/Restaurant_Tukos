@@ -37,8 +37,8 @@ class CategoriaController extends Controller
 
     public function edit(Categoria $categorium)
     {
-        //return response()->json($categorium);
-        return view('admin.categoria.edit', compact('categorium'));
+        return response()->json($categorium);
+        
     }
 
     public function update(Request $request, Categoria $categorium)

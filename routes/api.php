@@ -13,9 +13,3 @@ use App\Http\Controllers\AmbienteController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::resource('ambiente',AmbienteController::class);

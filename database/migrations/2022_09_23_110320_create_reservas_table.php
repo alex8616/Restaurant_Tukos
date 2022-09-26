@@ -19,6 +19,9 @@ class CreateReservasTable extends Migration
             $table->time('hora_inicio');
             $table->time('hora_fin');
             $table->string('motivo');
+            $table->string('precio');
+            $table->string('adelanto');
+            $table->string('total');
             $table->unsignedBigInteger('ambiente_id');
             $table->foreign('ambiente_id')->references('id')->on('ambientes')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
