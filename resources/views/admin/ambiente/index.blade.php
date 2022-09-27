@@ -7,45 +7,64 @@
 @stop
 
 @section('content')
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong> Guardado!</strong> {{ session('success') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+<section class="wrapper">
+    <div class="container-fostrap">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                @foreach($ambientes as $ambiente)
+                    <div class="max-w-6xl mx-auto">
+                        <div class="flex items-center justify-center min-h-screen">
+                            <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
+                                <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+                                    <div class="bg-cover bg-center h-56 p-4" style="background-image: url(https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80)">
+                                    AMBIENTE
+                                        <div class="flex justify-end">
+                                            <a href="">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="p-4">
+                                        <p class="uppercase tracking-wide text-sm font-bold text-gray-700">Ambiente Registrado .. </p>
+                                        <p class="text-3xl text-gray-900">{{$ambiente->Nombre_Ambiente}}</p>
+                                    </div>
+                                    <div class="flex p-4 border-t border-gray-300 text-gray-1000">
+                                        <div class="flex-1 inline-flex items-center">
+                                            
+                                        </div>
+                                        <div class="flex-1 inline-flex items-center">
+                                            <svg class="h-6 w-6 text-gray-600 fill-current mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd" d="M17.03 21H7.97a4 4 0 0 1-1.3-.22l-1.22 2.44-.9-.44 1.22-2.44a4 4 0 0 1-1.38-1.55L.5 11h7.56a4 4 0 0 1 1.78.42l2.32 1.16a4 4 0 0 0 1.78.42h9.56l-2.9 5.79a4 4 0 0 1-1.37 1.55l1.22 2.44-.9.44-1.22-2.44a4 4 0 0 1-1.3.22zM21 11h2.5a.5.5 0 1 1 0 1h-9.06a4.5 4.5 0 0 1-2-.48l-2.32-1.15A3.5 3.5 0 0 0 8.56 10H.5a.5.5 0 0 1 0-1h8.06c.7 0 1.38.16 2 .48l2.32 1.15a3.5 3.5 0 0 0 1.56.37H20V2a1 1 0 0 0-1.74-.67c.64.97.53 2.29-.32 3.14l-.35.36-3.54-3.54.35-.35a2.5 2.5 0 0 1 3.15-.32A2 2 0 0 1 21 2v9zm-5.48-9.65l2 2a1.5 1.5 0 0 0-2-2zm-10.23 17A3 3 0 0 0 7.97 20h9.06a3 3 0 0 0 2.68-1.66L21.88 14h-7.94a5 5 0 0 1-2.23-.53L9.4 12.32A3 3 0 0 0 8.06 12H2.12l3.17 6.34z"></path>
+                                            </svg>
+                                            <p><span class="text-gray-900 font-bold">2</span> Bathrooms</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                 </div>
+                <div>
+                </div>
+            </div>
+        </div>
     </div>
-@elseif(session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong> Error !</strong> {{ session('error') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-@endif
-@if (session('cancelado'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{ session('cancelado') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-@endif
-<!-- Button trigger modal -->
-<br>
-<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#modelId">
-  Añadir Ambiente
-</button>
-<hr>
+</section>  
+<div class="floating-container">
+    <button type="button" data-toggle="modal" data-target="#modelId">
+        <div class="floating-button">+</div>
+    </button>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            </div>
             <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
@@ -111,45 +130,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap4.min.css">
     <link href="{{asset('css/header.css')}}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        .stepper-input {
-            display: flex;
-
-            /* Border */
-            border: 1px solid #d1d5db;
-            border-radius: 0.25rem;
-
-            /* Size */
-            height: 2rem;
-        }
-
-        .stepper-input__button {
-            /* Reset */
-            background: #d1d5db;
-            border: none;
-
-            /* Center the content */
-            align-items: center;
-            display: flex;
-            justify-content: center;
-
-            /* Size */
-            width: 2rem;
-        }
-
-        .stepper-input__content {
-            flex: 1;
-        }
-
-        .stepper-input__input {
-            /* Reset */
-            border: none;
-
-            /* Take full size of its container */
-            height: 100%;
-            width: 100%;
-        }
-    </style>
+    <link href="{{asset('css/ambiente.css')}}" rel="stylesheet" type="text/css"/>
     @notifyCss
 @stop
 
