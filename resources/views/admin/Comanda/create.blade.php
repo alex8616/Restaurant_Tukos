@@ -15,11 +15,6 @@
     <div class="row">
     <div class="card">
         <div class="card-body">
-            <div>
-                @foreach($categorias as $categoria)
-                    <a class="btn btn-primary mb-2" href="{{ route('admin.comanda.create')}}"> {{ $categoria->id }} </a>
-                @endforeach
-            </div>
             <div id="orders-chart-legend" class="orders-chart-legend">
                 <div class="container">
                     <div class="card-body">
@@ -161,91 +156,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"></link>
     <link href="{{asset('css/header.css')}}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-        }
-
-        body{
-            background: #D4D4D4;
-            font-family: 'Open sans';
-        }
-
-        .wrap{
-            width: 800px;
-            max-width: 90%;
-            margin: 30px auto;
-        }
-
-        ul.tabs{
-            width: 100%;
-            background: #363636;
-            list-style: none;
-            display: flex;
-        }
-
-        ul.tabs li{
-            width: 50%;
-        }
-
-        ul.tabs li a{
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            text-align: center;
-
-            display: block;
-            padding: 20px 0px;
-        }
-
-        .active{
-            background: #0984CC;
-        }
-
-        ul.tabs li a .tab-text{
-            margin-left: 8px;
-        }
-
-        .secciones{
-            width: 100%;
-            background: #fff;
-        }
-
-        .secciones article{
-            padding: 30px;
-        }
-
-        .secciones article p{
-            text-align: justify;
-        }
-
-
-        @media screen and (max-width: 700px){
-            ul.tabs li{
-                width: none;
-                flex-basis: 0;
-                flex-grow: 1;
-            }
-        }
-
-        @media screen and (max-width: 450px){
-            ul.tabs li a{
-                padding: 15px 0px;
-            }
-
-            ul.tabs li a .tab-text{
-                display: none;
-            }
-
-            .secciones article{
-                padding: 20px;
-            }
-        }
-    </style>
 @stop
 
 @section('js')
@@ -265,22 +175,6 @@
             if($("#tipo_cliente_id").val() !== "0"){
                 $('#cliente_id').prop('disabled', true);
             }
-        });
-    </script>
-
-    <script>
-       $('ul.tabs li a:first').addClass('active');
-        $('.secciones article').hide();
-        $('.secciones article:first').show();
-
-        $('ul.tabs li a').click(function(){
-            $('ul.tabs li a').removeClass('active');
-            $(this).addClass('active');
-            $('.secciones article').hide();
-
-            var activeTab = $(this).attr('href');
-            $(activeTab).show();
-            return false;
         });
     </script>
 

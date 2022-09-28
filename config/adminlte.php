@@ -359,7 +359,7 @@ return [
                 [
                     'text' => 'Reserva De Mesas',
                     'icon'  => 'fa-sharp fa-solid fa-table',
-                    'url'  => 'pensionado/',
+                    'url'  => 'reservas/',
                 ],
             ],
         ],

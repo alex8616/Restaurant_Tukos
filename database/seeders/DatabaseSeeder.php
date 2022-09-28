@@ -19,10 +19,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(EmpresaSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         Categoria::factory(20)->create();
         Cliente::factory(20)->create();
         Plato::factory(20)->create();
         $this->call(UsersTableSeeder::class);
+        $this->call(EmpresaSeeder::class);
     }
 }

@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\TipoCliente;
 use App\Models\Categoria;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Luecano\NumeroALetras\NumeroALetras;
+use App\Models\NumToLetter;
 
 
 class ComandaController extends Controller
@@ -27,16 +28,6 @@ class ComandaController extends Controller
         $tipoclientes = TipoCliente::orderBy('id', 'desc')->get();
         return view ('admin.comanda.index', compact('comandas','detallecomandas','tipoclientes'));
         //return response()->json($tipoclientes);
-       /*
-        $comandas = Comanda::orderBy('id', 'desc')->get();
-        $detallecomandas = DetalleComanda::orderBy('id', 'desc')->get();
-        $tipoclientes = Cliente::select('*')
-        ->join('detalle_clientes', 'clientes.id', '=', 'detalle_clientes.cliente_id')
-        ->join('tipo_clientes', 'tipo_clientes.id', '=', 'detalle_clientes.tipo_cliente_id')
-        ->get();
-        return view ('admin.comanda.index', compact('comandas','detallecomandas','tipoclientes'));
-        //return response()->json($tipoclientes);
-       */
     }
 
     public function create(){
@@ -76,7 +67,7 @@ class ComandaController extends Controller
         }
 
     public function show(Comanda $comanda){
-
+        
         $subtotal = 0;
         $tipoclientes = Cliente::select('tipo_clientes.Nombre_tipoclientes')
         ->join('detalle_clientes', 'clientes.id', '=', 'detalle_clientes.cliente_id')
@@ -89,7 +80,17 @@ class ComandaController extends Controller
             $detallecomanda->precio_venta * $detallecomanda->descuento / 100;
         }
 
-        return view('admin.comanda.show', compact('comanda', 'detallecomandas', 'subtotal','tipoclientes'));
+        $new = new NumToLetter();
+        $numtext = $new->numtoletras($comanda->total,'','Bolivianos');
+
+       /*
+        $formatter = NumeroALetras::convertir($comanda->total);
+        return response()->json($formatter);
+      
+        $formatter = new NumeroALetras();
+        echo $formatter->toMoney(101.51,2,'Bolivianos','Centavos'); */
+        return view('admin.comanda.show', compact('comanda', 'detallecomandas', 'subtotal','tipoclientes','numtext'));
+        //return response()->json($numtext);
     }
 
     public function edit(Comanda $comanda){

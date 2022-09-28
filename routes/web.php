@@ -20,8 +20,10 @@ use App\Http\Controllers\MesaController;
 use App\Http\Controllers\AmbienteController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\DetalleClientesController;
+use App\Http\Controllers\EmpresaController;
 use App\Http\Livewire\Articulos;
 use App\Models\Ambiente;
+
 
 Route::get('/', function () {
     return view('auth.login');
@@ -64,6 +66,7 @@ Route::resource('ambiente', AmbienteController::class)->names('admin.ambiente')-
 Route::get('ambiente/{ambiente}/reserva', [AmbienteController::class, 'reserva'])->name('admin.ambiente.reserva');
 Route::post('ambiente.reservastore', [AmbienteController::class, 'reservastore'])->name('admin.ambiente.reservastore');
 Route::resource('reserva', ReservaController::class)->names('admin.reserva')->middleware('auth');
+Route::resource('empresa', EmpresaController::class)->names('admin.empresa')->middleware('auth');
 
 
 
@@ -106,6 +109,7 @@ Route::get('notifications/get',[ClienteController::class, 'getNotificationsData'
 Route::resource('pensionado', TipoClienteController::class)->names('admin.pensionado')->middleware('auth');
 Route::get('cambio_de_estado/pensionado/{tipocliente}', [TipoClienteController::class, 'cambio_de_estado'])->name('cambio.estado.tipocliente');
 
+Route::put('update/{id}', [CategoriaController::class, 'updatecategoria'])->name('updatecategoria');
 
 Route::get('markAsRead', function(){
     auth()->user()->unreadNotifications->markAsRead();
