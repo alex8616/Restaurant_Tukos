@@ -4,10 +4,10 @@
     }
 
     .floating-container {
-    position: fixed;
+    position:absolute;
     width: 100px;
     height: 100px;
-    bottom: 0;
+    bottom: 550px;
     right: 0;
     margin: 35px 25px;
     }
@@ -85,3 +85,4 @@
     background: #FF9800;
     box-shadow: 0 20px 20px -10px rgba(255, 152, 0, 0.5);
     }
+    

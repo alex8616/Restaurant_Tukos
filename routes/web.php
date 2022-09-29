@@ -110,6 +110,7 @@ Route::resource('pensionado', TipoClienteController::class)->names('admin.pensio
 Route::get('cambio_de_estado/pensionado/{tipocliente}', [TipoClienteController::class, 'cambio_de_estado'])->name('cambio.estado.tipocliente');
 
 Route::put('update/{id}', [CategoriaController::class, 'updatecategoria'])->name('updatecategoria');
+Route::put('show/{id}', [CategoriaController::class, 'MostrarCategoria'])->name('showcategoria');
 
 Route::get('markAsRead', function(){
     auth()->user()->unreadNotifications->markAsRead();

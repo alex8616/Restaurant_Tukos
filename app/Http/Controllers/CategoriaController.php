@@ -38,7 +38,6 @@ class CategoriaController extends Controller
     */
 
     public function updatecategoria(Request $request, $id){
-
         $Datoscategoria = Categoria:: findOrFail($id); 
         $Datoscategoria->Nombre_categoria = $request->Nombre_categoria;
         $Datoscategoria->save();

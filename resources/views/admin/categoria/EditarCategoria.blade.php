@@ -1,5 +1,5 @@
 <!--ventana para Update--->
-<div class="modal fade" id="editChildresn{{ $categoria->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="editCategoria{{ $categoria->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header" style="background-color: #563d7c !important;">
@@ -17,7 +17,7 @@
     @csrf
         <div class="modal-body" id="cont_modal">
             <div class="form-group">
-            <label for="Nombre_categoria" class="col-form-label">Nombre del Niño:</label>
+            <label for="Nombre_categoria" class="col-form-label">Nombre del la Categoria:</label>
             <input type="text" name="Nombre_categoria" class="form-control" value="{{ $categoria->Nombre_categoria }}" required="true">
         </div>
         <div class="modal-footer">
