@@ -6,19 +6,17 @@ use App\Models\Plato;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use Illuminate\Support\Facades\Storage;
-
+use DB;
 
 class PlatoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        $platos=Plato::orderBy('id', 'desc')->get();
+
+    public function index(Request $request){
         $categorias = Categoria::get();
+        $platos=Plato::select('*')
+        ->join('categorias', 'categorias.id', '=', 'platos.categoria_id')
+        ->orderBy('platos.id', 'desc')->get();
+        //return response()->json($platos);
         return view('admin.plato.index',compact('platos','categorias'));
     }
 
@@ -47,8 +45,9 @@ class PlatoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
+    try {
+        DB::beginTransaction();
         $data = request()->validate([
             'Nombre_plato' => 'required',
             'Precio_plato' => 'required',
@@ -61,10 +60,14 @@ class PlatoController extends Controller
             $datosPlato['imagen'] = $request->file('imagen')->store('uploads', 'public');
         }
         $plato = Plato::create($datosPlato);
-
-        //return response()->json($plato);
-        return redirect()->route('admin.plato.index')->with('success', 'Se registró correctamente');
-        
+        DB::commit();
+    } catch (\Throwable $th) {
+        DB::rollback();
+        notify()->error('No Se Pudo Registrar') or notify()->error('No Se Pudo Registrar⚡️', 'Plato NO Registrado');
+        return redirect()->route('admin.cliente.index');
+    }
+        notify()->success('Se Registro El Plato correctamente') or notify()->success('Se registró correctamente ⚡️', 'Plato Registrado Correctamente');
+        return redirect()->route('admin.plato.index');
     }
 
     /**

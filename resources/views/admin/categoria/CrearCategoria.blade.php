@@ -11,13 +11,11 @@
                     <form action="{{ route('admin.categoria.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="nombre">Nombre Categoría: </label>
+                            <label class="col-sm-12 col-form-label is-required" for="nombre">Nombre Categoría: </label>
                             <input type="text" name="Nombre_categoria" id="Nombre_categoria" value="{{ old('Nombre_categoria') }}" class="form-control"
-                                tabindex="1" autofocus onkeyup="javascript:this.value=this.value.toUpperCase();">
+                                tabindex="1" autofocus onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                             @if ($errors->has('Nombre_categoria'))
-                                <div class="alert alert-danger">
                                     <span class="error text-danger">{{ $errors->first('Nombre_categoria') }}</span>
-                                </div>
                             @endif
                         </div>
                         <div class="row">

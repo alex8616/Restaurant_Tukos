@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoriaController extends Controller
 {
@@ -24,9 +25,23 @@ class CategoriaController extends Controller
 
     public function store(Request $request)
     {
-        Categoria::create($request->all());
-        return redirect()->route('admin.categoria.index')->with('success', 'Se registró correctamente');
-   
+        try {
+            DB::beginTransaction();
+            $data = request()->validate([
+                'Nombre_categoria' => 'required|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50|unique:categorias',
+               ]);
+    
+            $datoscategoria = Categoria::create([
+                'Nombre_categoria' => $data['Nombre_categoria'],
+            ]);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            notify()->error('No Se Pudo Registrar, Ya tienes un registro con ese Nombre') or notify()->error('No Se Pudo Registrar⚡️', 'Articulo NO Registrado');
+            return redirect()->route('admin.categoria.index');
+        }
+            notify()->success('Se registró correctamente') or notify()->success('Se registró correctamente ⚡️', 'Articulo Registrado Correctamente');
+            return redirect()->route('admin.categoria.index');
     }
 
     /*
@@ -38,11 +53,19 @@ class CategoriaController extends Controller
     */
 
     public function updatecategoria(Request $request, $id){
-        $Datoscategoria = Categoria:: findOrFail($id); 
-        $Datoscategoria->Nombre_categoria = $request->Nombre_categoria;
-        $Datoscategoria->save();
-
-        return redirect()->route('admin.categoria.index')->with('update', 'Se editó correctamente');
+        try {
+            DB::beginTransaction();
+            $Datoscategoria = Categoria:: findOrFail($id); 
+            $Datoscategoria->Nombre_categoria = $request->Nombre_categoria;
+            $Datoscategoria->save();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            notify()->error('No Se Pudo Actualizar El Registro') or notify()->error('No Se Pudo Registrar⚡️', 'Articulo NO Actualizado');
+            return redirect()->route('admin.categoria.index');
+        }
+            notify()->success('Se Actualizo La Informacion correctamente') or notify()->success('Se Actualizo La Informacion correctamente ⚡️', 'Articulo Actualizo Correctamente');
+            return redirect()->route('admin.categoria.index');
     }
 
     public function destroy(Categoria $categorium){

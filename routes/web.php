@@ -109,11 +109,15 @@ Route::get('notifications/get',[ClienteController::class, 'getNotificationsData'
 Route::resource('pensionado', TipoClienteController::class)->names('admin.pensionado')->middleware('auth');
 Route::get('cambio_de_estado/pensionado/{tipocliente}', [TipoClienteController::class, 'cambio_de_estado'])->name('cambio.estado.tipocliente');
 
-Route::put('update/{id}', [CategoriaController::class, 'updatecategoria'])->name('updatecategoria');
+Route::put('updatecategoria/{id}', [CategoriaController::class, 'updatecategoria'])->name('updatecategoria');
 Route::put('show/{id}', [CategoriaController::class, 'MostrarCategoria'])->name('showcategoria');
+
 
 Route::get('markAsRead', function(){
     auth()->user()->unreadNotifications->markAsRead();
     return redirect()->back();
 })->name('markAsRead');
+
+
+Route::put('updatecliente/{id}', [ClienteController::class, 'updatecliente'])->name('updatecliente');
 

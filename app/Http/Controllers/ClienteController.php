@@ -18,13 +18,13 @@ class ClienteController extends Controller
 {
 
     public function index(){
-        $clientes = Cliente::get();
+        $clientes = Cliente::orderBy('id', 'desc')->get();
         //auth()->user()->notify(new ClienteNotification($clientes));
         return view('admin.cliente.listar',compact('clientes'));
     }
 
     public function create(){
-        return view('admin.cliente.create');
+        //return view('admin.cliente.create');
     }
 
     /**
@@ -33,34 +33,41 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $data = request()->validate([
-            'Nombre_cliente' => 'required|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
-            'Apellidop_cliente' => 'nullable|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
-            'Apellidom_cliente' => 'nullable',
-            'Direccion_cliente' => 'nullable|max:100',
-            'Celular_cliente' => 'nullable|min:8|max:12|regex:/^[+,0-9]{8,12}$/|unique:clientes',
-            'Correo_cliente' => 'nullable',
-            'FechaNacimiento_cliente' => 'nullable',
-            'latidud' => 'nullable',
-            'longitud' => 'nullable',
-           ]);
-
-        $datoscliente = Cliente::create([
-            'Nombre_cliente' => $data['Nombre_cliente'],
-            'Apellidop_cliente' => $data['Apellidop_cliente'],
-            'Apellidom_cliente' => $data['Apellidom_cliente'],
-            'Direccion_cliente' => $data['Direccion_cliente'],
-            'Celular_cliente' => $data['Celular_cliente'],
-            'FechaNacimiento_cliente' => $data['FechaNacimiento_cliente'],
-            'Correo_cliente' => $data['Correo_cliente'],
-            'latidud' => $data['latidud'],
-            'longitud' => $data['longitud'],
-        ]);
-        
-        return redirect()->route('admin.cliente.index')->with('success', 'Se registró correctamente');
-    }
+    public function store(Request $request){
+        try {
+            DB::beginTransaction();
+            $data = request()->validate([
+                'Nombre_cliente' => 'required|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
+                'Apellidop_cliente' => 'nullable|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
+                'Apellidom_cliente' => 'nullable',
+                'Direccion_cliente' => 'nullable|max:100',
+                'Celular_cliente' => 'nullable|min:8|max:12|regex:/^[+,0-9]{8,12}$/|unique:clientes',
+                'Correo_cliente' => 'nullable',
+                'FechaNacimiento_cliente' => 'nullable',
+                'latidud' => 'nullable',
+                'longitud' => 'nullable',
+               ]);
+    
+            $datoscliente = Cliente::create([
+                'Nombre_cliente' => $data['Nombre_cliente'],
+                'Apellidop_cliente' => $data['Apellidop_cliente'],
+                'Apellidom_cliente' => $data['Apellidom_cliente'],
+                'Direccion_cliente' => $data['Direccion_cliente'],
+                'Celular_cliente' => $data['Celular_cliente'],
+                'FechaNacimiento_cliente' => $data['FechaNacimiento_cliente'],
+                'Correo_cliente' => $data['Correo_cliente'],
+                'latidud' => $data['latidud'],
+                'longitud' => $data['longitud'],
+            ]);
+            DB::commit();
+            } catch (\Throwable $th) {
+                DB::rollback();
+                notify()->error('No Se Pudo Registrar') or notify()->error('No Se Pudo Registrar⚡️', 'Cliente NO Registrado');
+                return redirect()->route('admin.cliente.index');
+            }
+                notify()->success('Se registró correctamente') or notify()->success('Se registró correctamente ⚡️', 'Articulo Registrado Correctamente');
+                return redirect()->route('admin.cliente.index');
+        }
 
     /**
      * Display the specified resource.
@@ -100,15 +107,21 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function updatecliente(Request $request, $id){
+    try {
+        DB::beginTransaction();
         $datoscliente = request()->except(['_token', '_method']);
 
         Cliente::where('id', '=', $id)->update($datoscliente);
         $cliente = Cliente::findOrFail($id);
-
-        return redirect()->route('admin.cliente.index')->with('actualizar', 'ok');;
-    
+        DB::commit();
+    } catch (\Throwable $th) {
+        DB::rollback();
+        notify()->error('No Se Pudo Actualizar .. ') or notify()->error('No Se Pudo Registrar⚡️', 'Cliente NO Registrado');
+        return redirect()->route('admin.cliente.index');
+    }
+        notify()->success('Se Actualizo La Informacion correctamente') or notify()->success('Se registró correctamente ⚡️', 'Articulo Registrado Correctamente');
+        return redirect()->route('admin.cliente.index');
     }
 
     /**

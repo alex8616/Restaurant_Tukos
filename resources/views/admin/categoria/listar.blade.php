@@ -2,23 +2,20 @@
 
 @section('title', 'Restaurant')
 
-@section('content_header')
-
-@stop
-
 @section('content')
 <div class="floating-container">
     <button type="button" data-toggle="modal" data-target="#modelId">
         <div class="floating-button">+</div>
     </button>
 </div>
+<br>
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-11">
+      <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title">LISTADO DE CATEGORIAS</h4><br>
+            <h4 class="card-title">LISTADO DE CATEGORIAS</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -63,11 +60,11 @@
                                 </form>
                             </td>
                         </tr>
-                        @include('admin.categoria.MostrarCategoria')
                         @include('admin.categoria.EditarCategoria')
+                        @include('admin.categoria.MostrarCategoria')
                     @endforeach
                 </tbody>
-              </table>
+            </table>
             </div>
           </div>
         </div>
@@ -75,28 +72,33 @@
     </div>
   </div>
 </div>
-
 <!-- Modal crear categoria -->
     @include('admin.categoria.CrearCategoria')
 @endsection
 
 @section('content_top_nav_right')
+    <x:notify-messages />
     @include('Notificaciones')
 @endsection
 @section('css')
     <link href="{{ asset('css/material-dashboardForms.css?v=2.1.1') }}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap4.min.css">
-    <link href="{{asset('css/header.css')}}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha512-rRQtF4V2wtAvXsou4iUAs2kXHi3Lj9NE7xJR77DE7GHsxgY9RTWy93dzMXgDIG8ToiRTD45VsDNdTiUagOFeZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{{asset('css/bottonfooder.css')}}" rel="stylesheet" type="text/css"/>
+    <style>
+        .is-required:after {
+        content: '*';
+        margin-left: 3px;
+        color: red;
+        font-weight: bold;
+        }
+    </style>
     @notifyCss
 @stop
 
 @section('js')
-        <x:notify-messages />
-        @notifyJs
     {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
@@ -154,13 +156,14 @@
                     "infoFiltered": "(Filtrado de _MAX_ registros totales)"
                 },
                 "lengthMenu": [
-                    [5, 10, 50, -1],
+                    [7, 10, 50, -1],
                     [5, 10, 50, "All"]
                 ]
 
             });
         });
     </script>
+    @notifyJs
 @stop
 
 

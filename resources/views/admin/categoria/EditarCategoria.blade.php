@@ -11,14 +11,14 @@
             </button>
     </div>
 
-
     <form method="POST" action="{{ route('updatecategoria', $categoria->id) }}">
     @method('PUT')
     @csrf
         <div class="modal-body" id="cont_modal">
             <div class="form-group">
             <label for="Nombre_categoria" class="col-form-label">Nombre del la Categoria:</label>
-            <input type="text" name="Nombre_categoria" class="form-control" value="{{ $categoria->Nombre_categoria }}" required="true">
+            <input type="text" name="Nombre_categoria" class="form-control" value="{{ $categoria->Nombre_categoria }}" 
+             onkeyup="javascript:this.value=this.value.toUpperCase();" value="{{ old('Nombre_cliente') }}" required="true">
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

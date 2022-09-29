@@ -2,139 +2,177 @@
 
 @section('title', 'Restaurant')
 
-@section('content_header')
-<div class="hero">
-    <h1 id="htitle"><span id="title">RESTAURANT TUKO´S</span><br>LISTADO DE CLIENTES</h1>
-</div>
-@stop
-
 @section('content')
-<a href="{{ route('admin.cliente.create') }}" class="btn btn-primary mb-2">Registrar Cliente Nuevo</a>
-<a href="{{ route('admin.pensionado.listpensionados') }}" class="btn btn-primary mb-2">Clientes Pensionados</a>
-<a href="{{ route('admin.cliente.listcumple') }}" class="btn btn-primary mb-2">Actividades</a>
-
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong> Guardado!</strong> {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @elseif(session('update'))
-        <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            <strong> Editado!</strong> {{ session('update') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-<div class="card">
-    <div class="card-body">
-    <table class="table table-striped" id="cliente">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Direccion</th>
-            <th>Numero De Celular</th>
-            <th>Accion</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($clientes as $cliente)
-        <tr>
-            <td>{{$cliente->id}}</td>
-            <td>{{$cliente->Nombre_cliente}}</td>
-            <td>{{$cliente->Apellidop_cliente}} {{$cliente->Apellidom_cliente}}</td>
-            <td>{{$cliente->Direccion_cliente}}</td>
-            <td>{{$cliente->Celular_cliente}}</td>
-            <td>
-                <a href="{{ route('admin.cliente.show', $cliente) }}" class="btn btn-info">Ver</a>
-                <a  href="{{ route('admin.cliente.edit', $cliente) }}" class="btn btn-secondary text-white">Editar</a>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
-    </div>
+<div class="floating-container">
+    <button type="button" data-toggle="modal" data-target="#modelId">
+        <div class="floating-button">+</div>
+    </button>
 </div>
-@stop
-
-@section('content_top_nav_right')
-<li class="nav-item dropdown">
-    <a class="nav-link" data-toggle="dropdown" href="#">
-        <i class="fas fa-bell"></i>
-        @if (count(auth()->user()->unreadNotifications))
-        <span class="badge badge-warning">{{ count(auth()->user()->unreadNotifications) }}</span>
-            
-        @endif
-        </span>
-    </a>
-    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="notifi">
-    <span class="dropdown-header" >Notificaciones Sin Leer</span>
-        @forelse (auth()->user()->unreadNotifications as $notification)
-        <a href="{{ route('admin.pensionado.listpensionados') }}" class="dropdown-item">
-        <i class="fa-solid fa-hand-pointer"></i> El Pensionado del cliente con <br><strong>{{ $notification->data['tipo'] }}</strong> se esta por terminar
-        <span class="ml-3 float-right text-muted text-sm">{{ $notification->data['Fecha_Final'] }}</span>
-        </a>
-        @empty
-            <span class="ml-3 float-right text-muted text-sm">Sin notificaciones por leer </span><br> 
-        @endforelse
-        <a href="{{ route('markAsRead') }}" class="dropdown-item dropdown-footer">Marcar Todos LEIDO</a>
-        <div class="dropdown-divider"></div>
-            <span class="dropdown-header">Notificaciones Leidas</span>
-            @forelse (auth()->user()->readNotifications as $notification)
-            <a href="{{ route('admin.pensionado.listpensionados') }}" class="dropdown-item">
-            <i class="fa-solid fa-check-double"></i> pension {{ $notification->data['id'] }}
-            <span class="ml-3 float-right text-muted text-sm">{{ $notification->data['id'], $notification->created_at->diffForHumans() }}</span>
-            </a>
-            @empty
-            <span class="ml-3 float-right text-muted text-sm">Sin notificaciones leidas</span>
-        @endforelse
+<br>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">LISTADO DE CLIENTES</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+            <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4 dt-responsive nowrap" id="categoria">
+            <thead class=" text-primary">
+                  <th class="text-center" style="width: 100px;">
+                    <strong>ID</strong>
+                  </th>
+                  <th class="text-center" style="width: 200px;">
+                    <strong>Nombre Cliente</strong>
+                  </th>
+                  <th class="text-center" style="width: 200px;">
+                    <strong>Apellido Cliente</strong>
+                  </th>
+                  <th class="text-center">
+                    <strong>Direccion</strong>
+                  </th>
+                  <th class="text-center">
+                    <strong>Numero De Celular</strong>
+                  </th>
+                  <th class="text-center">
+                    <strong>Acciones</strong>
+                  </th>
+                </thead>
+                <tbody>
+                    @php
+                        $i=1;
+                    @endphp
+                    @foreach ($clientes as $cliente)
+                    <tr>
+                        <td class="text-center">{{$i++}}</td>
+                        <td>{{$cliente->Nombre_cliente}}</td>
+                        <td>{{$cliente->Apellidop_cliente}} {{$cliente->Apellidom_cliente}}</td>
+                        <td>{{$cliente->Direccion_cliente}}</td>
+                        <td>{{$cliente->Celular_cliente}}</td>
+                        <td>
+                            <form action="{{ route('admin.cliente.destroy', $cliente) }}" method="POST"
+                                class="eliminar-form">
+                                @method('DELETE')
+                                @csrf
+                                <button type="button" class="btn btn-success" data-toggle="modal" style="padding:6%" data-target="#EditCliente{{ $cliente->id }}" title="Actualizar Registro">
+                                    <i class="zmdi zmdi-edit zmdi-hc-2x"></i>
+                                </button>
+                                <button type="submit" class="btn btn-danger" style="padding:6%" title="Eliminar Registro">
+                                    <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                </button>
+                                <a href="{{ route('admin.cliente.show', $cliente) }}">
+                                    <button type="button" class="btn btn-warning" style="padding:6%" title="Mostrar Registro">
+                                        <i class="zmdi zmdi-eye zmdi-hc-2x"></i>
+                                    </button>
+                                </a>
+                            </form>
+                        </td>
+                    </tr>
+                    @include('admin.cliente.EditCliente')
+                    @endforeach
+                </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</li>
+  </div>
+</div>
+<!-- Modal crear categoria -->
+    @include('admin.cliente.CrearCliente')
 @endsection
 
+@section('content_top_nav_right')
+    <x:notify-messages />
+    @include('Notificaciones')
+@endsection
 @section('css')
-    <link href="{{asset('css/header.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('css/material-dashboardForms.css?v=2.1.1') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha512-rRQtF4V2wtAvXsou4iUAs2kXHi3Lj9NE7xJR77DE7GHsxgY9RTWy93dzMXgDIG8ToiRTD45VsDNdTiUagOFeZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="{{asset('css/bottonfooder.css')}}" rel="stylesheet" type="text/css"/>
+    <style>
+        .is-required:after {
+        content: '*';
+        margin-left: 3px;
+        color: red;
+        font-weight: bold;
+        }
+    </style>
+    @notifyCss
 @stop
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/js/all.min.js" integrity="sha512-8pHNiqTlsrRjVD4A/3va++W1sMbUHwWxxRPWNyVlql3T+Hgfd81Qc6FC5WMXDC+tSauxxzp1tgiAvSKFu1qIlA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap4.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.8/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.8/js/responsive.bootstrap4.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+
     <script>
-        $('#cliente').DataTable({
-            responsive: true,
-            autoWidth: false,
-            "language": {
-            "lengthMenu": "Mostrar  " +
-                                   `<select class="custon-select custom-select-sm form-control form-control-sm"> 
-                                        <option value='10'>10</option>
-                                        <option value='25'>25</option>
-                                        <option value='50'>50</option>
-                                        <option value='100'>100</option>
-                                        <option value='-1'>All</option>
-                                    </select>`
-                                    + " Registros Por Pagina",
-            "zeroRecords": "No Se Encontro Ningun Usuario - Lo Siento",
-            "info": "Mostrando La Pagina _PAGE_ de _PAGES_",
-            "infoEmpty": "Ningun Registro Coincide Con Lo Buscado",
-            "infoFiltered": "(Filtrado de _MAX_ Registros Totales)",
-            'search': 'Buscar:',
-            'paginate':{
-                'next': 'Siguiente',
-                'previous': 'Anterior'
-            }
-        }
+        $('.eliminar-form').submit(function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Quieres eliminar?',
+                text: "El registro se eliminara definitivamente!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            });
         });
     </script>
+    @if (session('delete') == 'ok')
+        <script>
+            Swal.fire(
+                'Eliminar!',
+                'Se Eliminó el registro.',
+                'success'
+            )
+        </script>
+    @endif
+    <script>
+        $(document).ready(function() {
+            $('#categoria').DataTable({
+                responsive: true,
+                autoWidth: false,
+                "language": {
+                    "lengthMenu": "Mostrar registro por página",
+                    "zeroRecords": "No se encontro registro",
+                    "info": "Mostrando la página _PAGE_ de _PAGES_",
+                    "search": "Buscar",
+                    "paginate": {
+                        "previous": "Anterior",
+                        "next": "Siguiente"
+                    },
+                    "infoEmpty": "No hay registros",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)"
+                },
+                "lengthMenu": [
+                    [9, 10, 50, -1],
+                    [5, 10, 50, "All"]
+                ]
+
+            });
+        });
+    </script>
+    @notifyJs
 @stop
 
 
