@@ -17,7 +17,7 @@ use App\Models\Categoria;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Luecano\NumeroALetras\NumeroALetras;
 use App\Models\NumToLetter;
-
+use App\Models\Empresa;
 
 class ComandaController extends Controller
 {
@@ -127,6 +127,28 @@ class ComandaController extends Controller
         }
         //return response()->json($tipoclientes);
         $pdf = PDF::loadView('admin.comanda.pdf', compact('comanda', 'subtotal', 'tipoclientes', 'detallecomandas'))->setOptions(['defaultFont' => 'sans-serif'])->setPaper(array(0,0,320,500), 'portrait');;
+        return $pdf->stream('Reporte_de_venta'.$comanda->id.'pdf');
+    }
+
+    public function factura(Comanda $comanda){
+
+        $subtotal = 0;
+        $empresas = Empresa::get();
+        $tipoclientes = Cliente::select('*')
+        ->join('detalle_clientes', 'clientes.id', '=', 'detalle_clientes.cliente_id')
+        ->join('tipo_clientes', 'tipo_clientes.id', '=', 'detalle_clientes.tipo_cliente_id')
+        ->where('detalle_clientes.tipo_cliente_id', '=', $comanda->tipo_cliente_id)->get();
+        $detallecomandas = $comanda->detallecomandas;
+        foreach ($detallecomandas as $detallecomanda) {
+                $subtotal += $detallecomanda->cantidad *
+                $detallecomanda->precio_venta - $detallecomanda->cantidad *
+                $detallecomanda->precio_venta * $detallecomanda->descuento / 100;
+        }
+        $new = new NumToLetter();
+        $numtext = $new->numtoletras($comanda->total,'','Bolivianos');
+        //return view('admin.Comanda.factura');
+        $pdf = PDF::loadView('admin.comanda.factura', compact('comanda', 'subtotal', 'tipoclientes', 'detallecomandas', 'empresas','numtext'))
+        ->setOptions([]);
         return $pdf->stream('Reporte_de_venta'.$comanda->id.'pdf');
     }
 

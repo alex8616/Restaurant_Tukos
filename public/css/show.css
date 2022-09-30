@@ -3,12 +3,6 @@
   opacity: 1;
 }
 
-button{
-  width: 100%;
-  font-size: 100px;
-  text-align: center;
-}
-
 .guide {
   margin-bottom: 6.25rem;
 }
@@ -30,37 +24,19 @@ button{
   top: 400%;
 }
 
-#btnatras{
-    width: 100%;
-}
 .recipe-container {
-  right: -250px;
   font-family: Raleway, sans-serif;
-  font-weight: 400;
-  width: 750px;
-  height: 440px;
-  background-color: white;
-  overflow: hidden;
-  -webkit-box-shadow: 0 0 5rem rgba(0, 0, 0, 0.1);
-          box-shadow: 0 0 5rem rgba(0, 0, 0, 0.1);
-}
-
-
-
-.recipe-image {
-  position: absolute;
   width: 50%;
   height: 100%;
-  left: 0;
-  top: 0;
+  background-color: white;
 }
 
 .recipe-content {
   position: absolute;
-  width: 50%;
-  height: 80%;
+  width: 45%;
+  height: 50%;
   right: 0;
-  top: 0;
+  top: 20px;
   padding: 2.5rem 1rem;
 }
 
@@ -150,26 +126,3 @@ button{
   margin: 0 0.5rem;
 }
 
-.recipe-button {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  background-color: #5ad485;
-  color: white;
-  border: none;
-  height: 2.5rem;
-  padding: 0 1rem;
-  border-radius: 1.25rem;
-  font-size: 0.75rem;
-}
-
-.recipe-button.transparent {
-  background-color: transparent;
-  color: gray;
-}
-
-*, *:before, *:after {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  position: relative;
-}

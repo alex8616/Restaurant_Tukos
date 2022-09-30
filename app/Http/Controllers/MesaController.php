@@ -11,7 +11,7 @@ use App\Models\Plato;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class MesaController extends Controller
@@ -32,6 +32,8 @@ class MesaController extends Controller
     }
 
     public function crear(Request $request){
+    try {
+        DB::beginTransaction();
         $data = request()->validate([
             'Nombre_mesa' => 'nullable|unique:mesas',
            ]);
@@ -39,7 +41,15 @@ class MesaController extends Controller
         $datomesas = Mesa::create([
             'Nombre_mesa' => $data['Nombre_mesa'],
         ]);
-        return redirect()->route('admin.mesa.index')->with('success', 'Se registró correctamente');
+        DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            notify()->error('No Se Pudo Registrar, Ya tienes un registro con ese Nombre') or notify()->error('No Se Pudo Registrar⚡️', 'Mesa NO Registrado');
+            return redirect()->route('admin.mesa.index');
+        }
+            notify()->success('Se registró correctamente') or notify()->success('Se registró correctamente ⚡️', 'Mesa Registrado Correctamente');
+            return redirect()->route('admin.mesa.index')->with('success', 'Se registró correctamente');
+            return redirect()->route('admin.mesa.index');
     }
     
     public function create(){
@@ -78,26 +88,39 @@ class MesaController extends Controller
             return redirect()->route('admin.comandamesa.index')->with('success', 'Se registró la venta');
     }
 
-    public function show(Mesa $mesa)
-    {
-        //
+    public function show(Mesa $mesa){
+        
+        return view('admin.mesa.show', compact('mesa'));
     }
 
     public function edit(Mesa $mesa){
         return view('admin.mesa.edit', compact('mesa'));
     }
 
-    public function update(Request $request, Mesa $mesa){
-        $mesa->update($request->all());
-        return redirect()->route('admin.mesa.index')->with('update', 'Se editó correctamente');
+    public function updatemesa(Request $request, $id){
+    try {
+        DB::beginTransaction();
+        $Datosmesa = Mesa:: findOrFail($id); 
+        $Datosmesa->Nombre_mesa = $request->Nombre_mesa;
+        $Datosmesa->save();
+        DB::commit();
+    } catch (\Throwable $th) {
+        DB::rollback();
+        notify()->error('No Se Pudo Actualizar El Registro') or notify()->error('No Se Pudo Registrar⚡️', 'Articulo NO Actualizado');
+        return redirect()->route('admin.mesa.index');
+    }
+        notify()->success('Se Actualizo La Informacion correctamente') or notify()->success('Se Actualizo La Informacion correctamente ⚡️', 'Articulo Actualizo Correctamente');
+        return redirect()->route('admin.mesa.index');
     }
 
     public function destroy(Mesa $mesa){
         $item = $mesa->comandamesas()->count();
         if ($item > 0) {
-            return redirect()->back()->with('error','No se puede eliminar, hay platos que corresponden a esta categoría.');
+            notify()->error('La Mesa Noce Puede Borrar') or notify()->success('La Mesa Noce Puede Borrar ⚡️', 'La Mesa Noce Puede Borrar');
+            return redirect()->back();
         }
         $mesa->delete();
+        notify()->success('La Mesa Se Borro Correctamente') or notify()->success('La Mesa Se Borro correctamente ⚡️', 'La Mesa Se Borro Correctamente Correctamente');
         return redirect()->route('admin.mesa.index')->with('delete', 'ok');
     }
 }

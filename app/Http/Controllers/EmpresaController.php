@@ -14,7 +14,7 @@ class EmpresaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $empresa = Empresa::where('id', 3)->firstOrFail();
+        $empresa = Empresa::where('id', 1)->firstOrFail();
         return view('admin.empresa.index', compact('empresa'));
         /* 
         $empresa = Empresa::select('*')

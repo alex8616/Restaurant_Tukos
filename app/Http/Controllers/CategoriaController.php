@@ -71,9 +71,11 @@ class CategoriaController extends Controller
     public function destroy(Categoria $categorium){
         $item = $categorium->platos()->count();
         if ($item > 0) {
-            return redirect()->back()->with('error','No se puede eliminar, hay platos que corresponden a esta categoría.');
+            notify()->error('La Categoria Noce Puede Borrar') or notify()->success('La Categoria Noce Puede Borrar ⚡️', 'La Categoria Noce Puede Borrar');
+            return redirect()->route('admin.categoria.index');
         }
         $categorium->delete();
-        return redirect()->route('admin.categoria.index')->with('delete', 'ok');
+        notify()->success('La Categoria Se Borro Correctamente') or notify()->success('La Categoria Se Borro correctamente ⚡️', 'La Categoria Se Borro Correctamente Correctamente');
+        return redirect()->route('admin.categoria.index');
     }
 }

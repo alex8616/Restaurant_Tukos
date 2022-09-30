@@ -30,9 +30,6 @@
                   <th class="text-center">
                     <strong>Nombre Del Plato</strong>
                   </th>
-                  <th class="text-center" style="width:400px;">
-                    <strong>Caracteristicas Del Plato</strong>
-                  </th>
                   <th class="text-center">
                     <strong>Categoria Del Plato</strong>
                   </th>
@@ -49,8 +46,8 @@
                     @endphp
                     @foreach ($platos as $plato)
                         <tr>
-                            <td style="width:150px" class="text-center">{{ $i++ }}</td>
-                            <td class="text-center" style="width:150px">
+                            <td style="width: 60px;" class="text-center">{{ $i++ }}</td>
+                            <td style="width: 30px;" class="text-center">
                                 <center>
                                     @if (isset($plato->imagen))
                                         <img class="img-thumbnail" src="{{ asset('storage' . '/' . $plato->imagen) }}" style="width:120px; height:100px;"/>
@@ -59,25 +56,27 @@
                                     @endif
                                 </center>
                             </td>
-                            <td>{{ ($plato->Nombre_plato) }}</td>
-                            <td style="width:500px;">
-                                <p style="font-size:22px; text-justify: inter-word;">
-                                    {{ ($plato->Caracteristicas_plato) }}    
-                                </p>    
-                            </td>
-                            <td>{{ ($plato->Nombre_categoria) }}</td>
-                            <td class="text-center">{{ ($plato->Precio_plato) }} Bs.</td>
-                            <td class="text-center" style="width: 400px;">
-                                <form action="{{ route('admin.plato.destroy', $plato) }}" method="POST" class="formulario-eliminar">
+                            <td style="width: 150px;">{{ ($plato->Nombre_plato) }}</td>
+                            <td style="width: 150px;">{{ ($plato->Nombre_categoria) }}</td>
+                            <td style="width: 150px;" class="text-center">{{ ($plato->Precio_plato) }} Bs.</td>
+                            <td style="width: 150px;" class="text-center">
+                                <form action="{{ route('admin.plato.destroy', $plato) }}" method="POST" class="eliminar-form">
                                     @method('DELETE')
                                     @csrf
-                                        <a href="{{ route('admin.plato.edit', $plato) }}"
-                                            class="btn btn-success ">Editar
-                                        </a>
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    <button type="button" class="btn btn-success" data-toggle="modal" style="padding:6%" data-target="#EditPlato{{ $plato->id }}" title="Actualizar Registro">
+                                        <i class="zmdi zmdi-edit zmdi-hc-2x"></i>
+                                    </button>
+                                    <button type="submit" class="btn btn-danger" style="padding:6%" title="Eliminar Registro">
+                                        <i class="zmdi zmdi-delete zmdi-hc-2x"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" style="padding:6%" data-target="#ShowPlato{{ $plato->id }}" title="Actualizar Registro">
+                                        <i class="zmdi zmdi-eye zmdi-hc-2x"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
+                    @include('admin.plato.EditPlato')
+                    @include('admin.plato.ShowPlato')
                     @endforeach
                 </tbody>
             </table>
@@ -115,7 +114,6 @@
 @stop
 
 @section('js')
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.8/js/dataTables.responsive.min.js"></script>
@@ -125,7 +123,6 @@
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
-
     <script>
         $('.eliminar-form').submit(function(e) {
             e.preventDefault();
@@ -181,5 +178,3 @@
     </script>
     @notifyJs
 @stop
-
-

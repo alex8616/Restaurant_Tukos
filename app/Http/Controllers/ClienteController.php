@@ -6,7 +6,7 @@ use App\Models\Cliente;
 use App\Models\TipoCliente;
 use App\Models\User;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Database;
 use Carbon\Carbon;
 use App\Notifications\ClienteNotification;
@@ -122,6 +122,7 @@ class ClienteController extends Controller
     }
         notify()->success('Se Actualizo La Informacion correctamente') or notify()->success('Se registró correctamente ⚡️', 'Articulo Registrado Correctamente');
         return redirect()->route('admin.cliente.index');
+        //return response()->json(Cliente::where('id', '=', $id)->update($datoscliente));
     }
 
     /**

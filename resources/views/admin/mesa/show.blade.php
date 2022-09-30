@@ -9,68 +9,7 @@
 @stop
 
 @section('content')
-    <div class="card">
-        <div class="card-body">
-            <div class="form-group row">
-                <div class="col-md-4 text-center">
-                    <label class="form-control-label "><strong># Mesa</strong></label>
-                    <p>{{ucwords($comandamesa->mesa->Nombre_mesa)}}</p>
-                    
-                </div>
-                <div class="col-md-4 text-center">
-                    <label class="form-control-label"><strong>Número Venta</strong></label>
-                    <p>{{$comandamesa->id}}</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <label class="form-control-label"><strong>Vendedor</strong></label>
-                    <p>{{Str::ucfirst($comandamesa->user->name)}}</p>
-                </div>
-            </div>
-            <div class="form-group">
-                <h4 class="card-title text-bold">Detalles de Venta - Mesa</h4>
-                <div class="table-responsive col-md-12 table-bordered shadow-lg">
-                    <table id="saleDetails" class="table table-striped">
-                        <thead class="bg-primary text-white">
-                            <tr>
-                                <th>Plato</th>
-                                <th>Comentario</th>
-                                <th>Precio Venta (Bs)</th>
-                                <th>Cantidad</th>
-                                <th>SubTotal(Bs)</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th colspan="4">
-                                    <p align="right">TOTAL:</p>
-                                </th>
-                                <th>
-                                    <p align="left">Bs. {{number_format($comandamesa->total,2)}}</p>
-                                </th>
-                            </tr>
-
-                        </tfoot>
-                        <tbody>
-                            @foreach($detallecomandamesas as $detallecomanda)
-                            <tr>
-                                <td>{{ucwords($detallecomanda->plato->Nombre_plato)}}</td>
-                                <td>{{$detallecomanda->comentario}}</td>
-                                <td>Bs. {{$detallecomanda->precio_venta}}</td>
-                                <td>{{$detallecomanda->cantidad}}</td>
-                                <td align="left">Bs. {{number_format($detallecomanda->cantidad*$detallecomanda->precio_venta - $detallecomanda->cantidad*$detallecomanda->precio_venta*$detallecomanda->descuento/100,2)}}
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer text-muted">
-            <a href="{{route('admin.comandamesa.index')}}" class="btn btn-primary float-right">Regresar</a>
-        </div>
-    </div>
-</div>
+<h1>Nada Que Mostrar</h1>
 @stop
 
 @section('content_top_nav_right')

@@ -1,6 +1,6 @@
 <!--ventana para Update--->
 <div class="modal fade" id="EditCliente{{ $cliente->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <div class="modal-header" style="background-color: #563d7c !important;">
             <h6 class="modal-title" style="color: #fff; text-align: center;">
@@ -17,7 +17,6 @@
     @csrf
         <div class="modal-body" id="cont_modal">
         <div class="col-md-12">
-            <form action="{{ url('/cliente') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
                     <div class="form-group col-md-4">
@@ -59,7 +58,6 @@
                     <button type="submit" class="btn btn-success">Registrar</button>
                 </center>
                 </div>
-            </form>
             </div>    
         </div>
     </form>

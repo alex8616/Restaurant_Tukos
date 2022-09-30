@@ -93,6 +93,5 @@ class MenuController extends Controller
                   ]);
         
         return $pdf->stream('Reporte_de_venta.pdf');
-        $pdf = PDF::loadView('admin.comanda.pdf', compact('comanda', 'subtotal', 'detallecomandas'))->setOptions(['defaultFont' => 'sans-serif'])->setPaper(array(0,0,150,500), 'portrait');;
     }
 }

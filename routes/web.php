@@ -89,6 +89,8 @@ Route::get('cambio_de_estado/comandas/{comanda}', [ComandaController::class, 'ca
 Route::get('comandamesa/pdf/{comandaMesa}', [ComandaMesaController::class, 'pdf'])->name('admin.comandamesa.pdf');
 
 Route::get('comanda/pdf/{comanda}', [ComandaController::class, 'pdf'])->name('admin.comanda.pdf');
+Route::get('comanda/factura/{comanda}', [ComandaController::class, 'factura'])->name('admin.comanda.factura');
+
 
 Route::get('reports.component', ReportesController::class)->middleware('auth')->name('reports.reportes');
 Route::get('reports.ComponetMesa', ReporteMesaController::class)->middleware('auth')->name('reports.reportemesa');
@@ -110,7 +112,6 @@ Route::resource('pensionado', TipoClienteController::class)->names('admin.pensio
 Route::get('cambio_de_estado/pensionado/{tipocliente}', [TipoClienteController::class, 'cambio_de_estado'])->name('cambio.estado.tipocliente');
 
 Route::put('updatecategoria/{id}', [CategoriaController::class, 'updatecategoria'])->name('updatecategoria');
-Route::put('show/{id}', [CategoriaController::class, 'MostrarCategoria'])->name('showcategoria');
 
 
 Route::get('markAsRead', function(){
@@ -120,4 +121,6 @@ Route::get('markAsRead', function(){
 
 
 Route::put('updatecliente/{id}', [ClienteController::class, 'updatecliente'])->name('updatecliente');
+Route::put('updateplato/{id}', [PlatoController::class, 'updateplato'])->name('updateplato');
+Route::put('updatemesa/{id}', [MesaController::class, 'updatemesa'])->name('updatemesa');
 

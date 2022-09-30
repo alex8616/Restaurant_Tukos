@@ -60,8 +60,8 @@
                                 </form>
                             </td>
                         </tr>
-                        @include('admin.categoria.EditarCategoria')
                         @include('admin.categoria.MostrarCategoria')
+                        @include('admin.categoria.EditarCategoria')
                     @endforeach
                 </tbody>
             </table>

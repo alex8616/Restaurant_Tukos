@@ -1,90 +1,90 @@
 <link href="http://fonts.cdnfonts.com/css/danny-varefella" rel="stylesheet">
 <style>
-@import url('http://fonts.cdnfonts.com/css/danny-varefella');
-@page {
-    margin-top: 0;  
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-}
-#txt{
-    background: red;
-    font-family: cursive;
-}
-body{
-    background-image: url("{{ base_path() . '/public/img/FondoMenu.jpg' }}");
-}
-#logo{
-    float:right;
-    width: 35%;
-}
-#fondo2{
-    float:left;
-    transform: rotate(75deg);
-    width: 50%;
-    margin-left: -130;
-    margin-top: -150;
-}
-#fondo3{
-    position: absolute;
-    float:right;
-    width: 60%;
-    transform: rotate(60deg);
-    margin-right: -150;
-    margin-top: 5;
-}
-#tilulom{
-   color: white;
-   float: right;
-   text-align:center;
-}
-#subtitulos{
-   color: white;
-   margin-left: 20;
-}
-#platos{
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px;
-    width: 200px;
-    height: 150px;
-}
-#tbplatos{
-    margin:auto;
-    width: 80%;
-}
-table td h3{
+    @import url('http://fonts.cdnfonts.com/css/danny-varefella');
+    @page {
+        margin-top: 0;  
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+    #txt{
+        background: red;
+        font-family: cursive;
+    }
+    body{
+        background-image: url("{{ base_path() . '/public/img/FondoMenu.jpg' }}");
+    }
+    #logo{
+        float:right;
+        width: 35%;
+    }
+    #fondo2{
+        float:left;
+        transform: rotate(75deg);
+        width: 50%;
+        margin-left: -130;
+        margin-top: -150;
+    }
+    #fondo3{
+        position: absolute;
+        float:right;
+        width: 60%;
+        transform: rotate(60deg);
+        margin-right: -150;
+        margin-top: 5;
+    }
+    #tilulom{
     color: white;
-}
-table td h2{
+    float: right;
+    text-align:center;
+    }
+    #subtitulos{
     color: white;
-}
-#precio{
-    text-align: right;
-}
-#textprecio{
-    color: orange;
-}
-#txtdetalles{
-    vertical-align: top;
-}
-#tbinfo{
-    width: 80%;
-    margin: auto;
-}
-#moto{
-    width: 100%;
-}
-hr {
-    width: 70%;
-    height: 5px;
-    background-color: orange;
-}
-#tbdatos{
-    width: 90%;
-    margin: auto;  
-}
+    margin-left: 20;
+    }
+    #platos{
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 200px;
+        height: 150px;
+    }
+    #tbplatos{
+        margin:auto;
+        width: 80%;
+    }
+    table td h3{
+        color: white;
+    }
+    table td h2{
+        color: white;
+    }
+    #precio{
+        text-align: right;
+    }
+    #textprecio{
+        color: orange;
+    }
+    #txtdetalles{
+        vertical-align: top;
+    }
+    #tbinfo{
+        width: 80%;
+        margin: auto;
+    }
+    #moto{
+        width: 100%;
+    }
+    hr {
+        width: 70%;
+        height: 5px;
+        background-color: orange;
+    }
+    #tbdatos{
+        width: 90%;
+        margin: auto;  
+    }
 </style>
 <header>
 </header>

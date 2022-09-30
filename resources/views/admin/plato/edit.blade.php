@@ -62,9 +62,7 @@
         </form>
         </div>
     </div>
-</form>
 @stop
-
 @section('content_top_nav_right')
 <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -103,7 +101,6 @@
     <link href="{{asset('css/header.css')}}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @stop
-
 @section('js')
     <script>
         $("#precio_venta").blur(function() {
