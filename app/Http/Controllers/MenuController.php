@@ -23,9 +23,10 @@ class MenuController extends Controller
 
     public function index()
     {
+        $platos = Plato::get();
         $menus = Menu::orderBy('id', 'asc')->get();
         $detallemenus = DetalleMenu::orderBy('id', 'asc')->get();
-        return view ('admin.menu.index', compact('menus','detallemenus'));
+        return view ('admin.menu.index', compact('menus','detallemenus','platos'));
     }
 
     public function create()

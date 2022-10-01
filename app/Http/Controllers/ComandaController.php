@@ -18,7 +18,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Luecano\NumeroALetras\NumeroALetras;
 use App\Models\NumToLetter;
 use App\Models\Empresa;
-
+use App\Models\ControlCode;
 class ComandaController extends Controller
 {
 
@@ -67,7 +67,7 @@ class ComandaController extends Controller
         }
 
     public function show(Comanda $comanda){
-        
+
         $subtotal = 0;
         $tipoclientes = Cliente::select('tipo_clientes.Nombre_tipoclientes')
         ->join('detalle_clientes', 'clientes.id', '=', 'detalle_clientes.cliente_id')
@@ -81,16 +81,30 @@ class ComandaController extends Controller
         }
 
         $new = new NumToLetter();
-        $numtext = $new->numtoletras($comanda->total,'','Bolivianos');
-
+        $numtext = $new->numtoletras('1556.50','','Bolivianos');
+        dd($numtext);
        /*
         $formatter = NumeroALetras::convertir($comanda->total);
         return response()->json($formatter);
-      
+
         $formatter = new NumeroALetras();
         echo $formatter->toMoney(101.51,2,'Bolivianos','Centavos'); */
         return view('admin.comanda.show', compact('comanda', 'detallecomandas', 'subtotal','tipoclientes','numtext'));
         //return response()->json($numtext);
+    }
+    public function dato(Request $request){
+        $controlCode = new ControlCode();
+        $code = $controlCode->generate('383401100430659',//Numero de autorizacion
+                                       '05',//Numero de factura
+                                       '8552721014',//Número de Identificación Tributaria o Carnet de Identidad
+                                       str_replace('/','','2022/09/09'),//fecha de transaccion de la forma AAAAMMDD
+                                       '75',//Monto de la transacción
+                                       'vM3BSV9HDK7*eIUsB)3J$u-HaN)W[gY(fah{GE4T3js@rZpLBwZN=UG7+5@W@Gtt'//Llave de dosificación
+                );
+        //dd($code);
+        $rellenar='0|0|0|0';
+        $qr='8552721014'.'|'.'05'.'|'.'383401100430659'.'|'.'27-09-2022'.'|'.'75'.'|'.'75'.'|'.$code.'|'.$rellenar;
+        dd($qr);
     }
 
     public function edit(Comanda $comanda){
@@ -154,15 +168,15 @@ class ComandaController extends Controller
 
     public function listapedidos(){
 
-        $PedidoPlatos = DB::select('SELECT   
+        $PedidoPlatos = DB::select('SELECT
         sum(detalle_comandas.cantidad) as cantidad, platos.Nombre_plato as Nombre_plato , platos.id as id  from platos
-        inner join detalle_comandas on platos.id=detalle_comandas.plato_id 
+        inner join detalle_comandas on platos.id=detalle_comandas.plato_id
         inner join comandas on detalle_comandas.comanda_id=comandas.id where DATE(comandas.fecha_venta) = CURDATE()
         group by platos.Nombre_plato, platos.id order by sum(detalle_comandas.cantidad) desc limit 10');
 
-        $PedidoPlatoMesas = DB::select('SELECT   
+        $PedidoPlatoMesas = DB::select('SELECT
         sum(detalle_comanda_mesas.cantidad) as cantidad, platos.Nombre_plato as Nombre_plato , platos.id as id  from platos
-        inner join detalle_comanda_mesas on platos.id=detalle_comanda_mesas.plato_id 
+        inner join detalle_comanda_mesas on platos.id=detalle_comanda_mesas.plato_id
         inner join comanda_mesas on detalle_comanda_mesas.comanda_mesa_id=comanda_mesas.id where DATE(comanda_mesas.fecha_venta) = CURDATE()
         group by platos.Nombre_plato, platos.id order by sum(detalle_comanda_mesas.cantidad) desc limit 10');
         return view('admin.comanda.listapedidos',compact('PedidoPlatos','PedidoPlatoMesas'));

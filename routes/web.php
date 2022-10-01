@@ -124,3 +124,4 @@ Route::put('updatecliente/{id}', [ClienteController::class, 'updatecliente'])->n
 Route::put('updateplato/{id}', [PlatoController::class, 'updateplato'])->name('updateplato');
 Route::put('updatemesa/{id}', [MesaController::class, 'updatemesa'])->name('updatemesa');
 
+Route::get('pruebauno',[ComandaController::class, 'dato']);
